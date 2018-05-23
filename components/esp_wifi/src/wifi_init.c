@@ -311,6 +311,9 @@ void wifi_apb80m_release(void)
 }
 #endif //CONFIG_PM_ENABLE
 
+void adc_power_acquire(void);
+void adc_power_release(void);
+
 /* Coordinate ADC power with other modules. This overrides the function from PHY lib. */
 // It seems that it is only required on ESP32, but we still compile it for all chips, in case it is
 // called by PHY unexpectedly.

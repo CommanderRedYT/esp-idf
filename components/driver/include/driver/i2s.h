@@ -286,6 +286,7 @@ esp_err_t i2s_zero_dma_buffer(i2s_port_t i2s_num);
 esp_err_t i2s_set_clk(i2s_port_t i2s_num, uint32_t rate, i2s_bits_per_sample_t bits, i2s_channel_t ch);
 
 /**
+<<<<<<< HEAD
  * @brief get clock set on particular port number.
  *
  * @param i2s_num  I2S_NUM_0, I2S_NUM_1
@@ -300,13 +301,18 @@ float i2s_get_clk(i2s_port_t i2s_num);
  * @brief Set built-in ADC mode for I2S DMA, this function will initialize ADC pad,
  *        and set ADC parameters.
  * @note  In this mode, the ADC maximum sampling rate is 150KHz. Set the sampling rate through ``i2s_config_t``.
+=======
+ * @brief Set built-in ADC scanning mode for I2S DMA, this function will initialize ADC pads
+ *        by pattern table, and set ADC parameters.
+>>>>>>> d32152d88d (adc i2s mode with multiple channel pattern)
  * @param adc_unit    SAR ADC unit index
- * @param adc_channel ADC channel index
+ * @param adc_pattern ADC channels pattern table
+ * @param adc_items items amount in pattern table
  * @return
  *     - ESP_OK              Success
  *     - ESP_ERR_INVALID_ARG Parameter error
  */
-esp_err_t i2s_set_adc_mode(adc_unit_t adc_unit, adc1_channel_t adc_channel);
+esp_err_t i2s_set_adc_mode(adc_unit_t adc_unit, const adc_i2s_pattern_t* adc_pattern, uint8_t adc_items);
 
 /**
  * @brief Start to use I2S built-in ADC mode

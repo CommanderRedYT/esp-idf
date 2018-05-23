@@ -35,12 +35,13 @@ esp_err_t adc_set_i2s_data_source(adc_i2s_source_t src);
 /**
  * @brief Initialize I2S ADC mode
  * @param adc_unit ADC unit index
- * @param channel ADC channel index
+ * @param adc_pattern ADC channels pattern table
+ * @param adc_items items amount in pattern table
  * @return
  *     - ESP_OK success
  *     - ESP_ERR_INVALID_ARG Parameter error
  */
-esp_err_t adc_i2s_mode_init(adc_unit_t adc_unit, adc_channel_t channel);
+esp_err_t adc_i2s_mode_init(adc_unit_t adc_unit, const adc_i2s_pattern_t* adc_pattern, uint8_t adc_items);
 
 /*---------------------------------------------------------------
                     RTC controller setting
@@ -66,6 +67,16 @@ esp_err_t adc_i2s_mode_init(adc_unit_t adc_unit, adc_channel_t channel);
  * @return The hall sensor reading.
  */
 int hall_sensor_read(void);
+
+/**
+ * @brief Set DIG ADC CTRL data invert
+ * @param adc_unit ADC unit index
+ * @param inv_en whether enable data invert
+ * @return
+ *     - ESP_OK success
+ *     - ESP_ERR_INVALID_ARG Parameter error
+ */
+esp_err_t adc_set_mode_inv(adc_unit_t adc_unit, bool inv_en);
 
 #ifdef __cplusplus
 }

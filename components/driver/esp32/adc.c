@@ -82,7 +82,7 @@ esp_err_t adc_set_i2s_data_source(adc_i2s_source_t src)
     return ESP_OK;
 }
 
-esp_err_t adc_i2s_mode_init(adc_unit_t adc_unit, adc_channel_t channel)
+esp_err_t adc_i2s_mode_init(adc_unit_t adc_unit, const adc_i2s_pattern_t* adc_pattern, uint8_t adc_items)
 {
     if (adc_unit & ADC_UNIT_1) {
         ADC_CHECK((SOC_ADC_SUPPORT_DMA_MODE(ADC_NUM_1)), "ADC1 not support DMA for now.", ESP_ERR_INVALID_ARG);

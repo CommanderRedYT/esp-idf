@@ -80,6 +80,21 @@ typedef enum {
 } adc_i2s_source_t;
 
 /**
+ * Configure pattern table, each 8 bit defines one channel
+ * [7:4]-channel [3:2]-bit width [1:0]- attenuation
+ * BIT WIDTH: 3: 12BIT  2: 11BIT  1: 10BIT  0: 9BIT
+ * ATTEN: 3: ATTEN = 11dB 2: 6dB 1: 2.5dB 0: 0dB
+ */
+typedef union {
+    struct {
+        uint8_t atten: 2;       /*!< Pattern table ADC attenuation */
+        uint8_t bits:  2;       /*!< Pattern table ADC capture width */
+        uint8_t channel: 4;     /*!< Pattern table ADC channel number */
+    };
+    uint8_t val;
+} adc_i2s_pattern_t;
+
+/**
  * @brief ADC resolution setting option.
  *
  */
