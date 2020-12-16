@@ -56,13 +56,17 @@ static void get_device_service_name(prov_scheme_t prov_scheme, char *service_nam
     	return;
     }
 #if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_BLUEDROID_ENABLED
     if(prov_scheme == WIFI_PROV_SCHEME_BLE) {
         snprintf(service_name, max, "%s%02X%02X%02X",SERV_NAME_PREFIX_PROV, eth_mac[3], eth_mac[4], eth_mac[5]);
     } else {
 #endif
+#endif
          snprintf(service_name, max, "%s%02X%02X%02X",SERV_NAME_PREFIX_PROV, eth_mac[3], eth_mac[4], eth_mac[5]);
 #if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_BLUEDROID_ENABLED
     }
+#endif
 #endif
 }
 
@@ -123,6 +127,7 @@ void WiFiProvClass :: beginProvision(prov_scheme_t prov_scheme, scheme_handler_t
     }
     if(provisioned == false) {
 #if CONFIG_BLUEDROID_ENABLED
+#if CONFIG_BLUEDROID_ENABLED
         if(prov_scheme == WIFI_PROV_SCHEME_BLE) {
             service_key = NULL;
             if(uuid == NULL) {
@@ -130,6 +135,7 @@ void WiFiProvClass :: beginProvision(prov_scheme_t prov_scheme, scheme_handler_t
             }
             wifi_prov_scheme_ble_set_service_uuid(uuid);
         }
+#endif
 #endif
 
         if(service_name == NULL) {
