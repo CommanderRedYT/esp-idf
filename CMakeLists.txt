@@ -19,7 +19,6 @@ set(CORE_SRCS
   cores/esp32/esp32-hal-touch.c
   cores/esp32/esp32-hal-uart.c
   cores/esp32/esp32-hal-rmt.c
-  cores/esp32/Esp.cpp
   cores/esp32/FunctionalInterrupt.cpp
   cores/esp32/HardwareSerial.cpp
   cores/esp32/IPAddress.cpp
@@ -41,120 +40,27 @@ set(CORE_SRCS
   )
 
 set(LIBRARY_SRCS
-  libraries/ArduinoOTA/src/ArduinoOTA.cpp
   libraries/AsyncUDP/src/AsyncUDP.cpp
-  libraries/BluetoothSerial/src/BluetoothSerial.cpp
-  libraries/DNSServer/src/DNSServer.cpp
-  libraries/EEPROM/src/EEPROM.cpp
-  libraries/ESPmDNS/src/ESPmDNS.cpp
-  libraries/FFat/src/FFat.cpp
   libraries/FS/src/FS.cpp
   libraries/FS/src/vfs_api.cpp
-  libraries/HTTPClient/src/HTTPClient.cpp
-  libraries/HTTPUpdate/src/HTTPUpdate.cpp
-  # Removed due https://github.com/espressif/arduino-esp32/issues/4629
-  #libraries/LITTLEFS/src/LITTLEFS.cpp
-  libraries/NetBIOS/src/NetBIOS.cpp
-  libraries/Preferences/src/Preferences.cpp
-  libraries/SD_MMC/src/SD_MMC.cpp
-  libraries/SD/src/SD.cpp
-  libraries/SD/src/sd_diskio.cpp
-  libraries/SD/src/sd_diskio_crc.c
-  libraries/SimpleBLE/src/SimpleBLE.cpp
   libraries/SPIFFS/src/SPIFFS.cpp
-  libraries/SPI/src/SPI.cpp
-  libraries/Ticker/src/Ticker.cpp
-  libraries/Update/src/Updater.cpp
-  libraries/Update/src/HttpsOTAUpdate.cpp
-  libraries/WebServer/src/WebServer.cpp
-  libraries/WebServer/src/Parsing.cpp
-  libraries/WebServer/src/detail/mimetable.cpp
-  libraries/WiFiClientSecure/src/ssl_client.cpp
-  libraries/WiFiClientSecure/src/WiFiClientSecure.cpp
-  libraries/WiFi/src/ETH.cpp
-  libraries/WiFi/src/WiFiAP.cpp
-  libraries/WiFi/src/WiFiClient.cpp
-  libraries/WiFi/src/WiFi.cpp
-  libraries/WiFi/src/WiFiGeneric.cpp
-  libraries/WiFi/src/WiFiMulti.cpp
-  libraries/WiFi/src/WiFiScan.cpp
-  libraries/WiFi/src/WiFiServer.cpp
-  libraries/WiFi/src/WiFiSTA.cpp
-  libraries/WiFi/src/WiFiUdp.cpp
-  libraries/WiFiProv/src/WiFiProv.cpp
   libraries/Wire/src/Wire.cpp
-  )
-
-set(BLE_SRCS
-  libraries/BLE/src/BLE2902.cpp
-  libraries/BLE/src/BLE2904.cpp
-  libraries/BLE/src/BLEAddress.cpp
-  libraries/BLE/src/BLEAdvertisedDevice.cpp
-  libraries/BLE/src/BLEAdvertising.cpp
-  libraries/BLE/src/BLEBeacon.cpp
-  libraries/BLE/src/BLECharacteristic.cpp
-  libraries/BLE/src/BLECharacteristicMap.cpp
-  libraries/BLE/src/BLEClient.cpp
-  libraries/BLE/src/BLEDescriptor.cpp
-  libraries/BLE/src/BLEDescriptorMap.cpp
-  libraries/BLE/src/BLEDevice.cpp
-  libraries/BLE/src/BLEEddystoneTLM.cpp
-  libraries/BLE/src/BLEEddystoneURL.cpp
-  libraries/BLE/src/BLEExceptions.cpp
-  libraries/BLE/src/BLEHIDDevice.cpp
-  libraries/BLE/src/BLERemoteCharacteristic.cpp
-  libraries/BLE/src/BLERemoteDescriptor.cpp
-  libraries/BLE/src/BLERemoteService.cpp
-  libraries/BLE/src/BLEScan.cpp
-  libraries/BLE/src/BLESecurity.cpp
-  libraries/BLE/src/BLEServer.cpp
-  libraries/BLE/src/BLEService.cpp
-  libraries/BLE/src/BLEServiceMap.cpp
-  libraries/BLE/src/BLEUtils.cpp
-  libraries/BLE/src/BLEUUID.cpp
-  libraries/BLE/src/BLEValue.cpp
-  libraries/BLE/src/FreeRTOS.cpp
-  libraries/BLE/src/GeneralUtils.cpp
   )
 
 
 set(includedirs
   variants/esp32/
   cores/esp32/
-  libraries/ArduinoOTA/src
   libraries/AsyncUDP/src
-  libraries/BLE/src
-  libraries/BluetoothSerial/src
-  libraries/DNSServer/src
-  libraries/EEPROM/src
-  libraries/ESP32/src
-  libraries/ESPmDNS/src
-  libraries/FFat/src
   libraries/FS/src
-  libraries/HTTPClient/src
-  libraries/HTTPUpdate/src
-  # Removed due https://github.com/espressif/arduino-esp32/issues/4629
-  #libraries/LITTLEFS/src
-  libraries/NetBIOS/src
-  libraries/Preferences/src
-  libraries/SD_MMC/src
-  libraries/SD/src
-  libraries/SimpleBLE/src
   libraries/SPIFFS/src
-  libraries/SPI/src
-  libraries/Ticker/src
-  libraries/Update/src
-  libraries/WebServer/src
-  libraries/WiFiClientSecure/src
-  libraries/WiFi/src
-  libraries/WiFiProv/src
   libraries/Wire/src
   )
 
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
 set(priv_includes cores/esp32/libb64)
-set(requires spi_flash mbedtls mdns esp_adc_cal wifi_provisioning esp_https_ota)
-set(priv_requires fatfs nvs_flash app_update spiffs bootloader_support openssl bt tinyusb main)
+set(requires spi_flash mbedtls esp_adc_cal wifi_provisioning)
+set(priv_requires nvs_flash spiffs bootloader_support openssl tinyusb main)
 
 idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires})
 
