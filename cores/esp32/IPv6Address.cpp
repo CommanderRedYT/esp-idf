@@ -61,7 +61,7 @@ size_t IPv6Address::printTo(Print& p) const
     return n;
 }
 
-String IPv6Address::toString() const
+std::string IPv6Address::toString() const
 {
     char szRet[40];
     sprintf(szRet,"%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x",
@@ -69,7 +69,7 @@ String IPv6Address::toString() const
             _address.bytes[4], _address.bytes[5], _address.bytes[6], _address.bytes[7],
             _address.bytes[8], _address.bytes[9], _address.bytes[10], _address.bytes[11],
             _address.bytes[12], _address.bytes[13], _address.bytes[14], _address.bytes[15]);
-    return String(szRet);
+    return std::string(szRet);
 }
 
 bool IPv6Address::fromString(const char *address)

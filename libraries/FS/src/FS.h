@@ -89,22 +89,22 @@ public:
     FS(FSImplPtr impl) : _impl(impl) { }
 
     File open(const char* path, const char* mode = FILE_READ);
-    File open(const String& path, const char* mode = FILE_READ);
+    File open(const std::string& path, const char* mode = FILE_READ);
 
     bool exists(const char* path);
-    bool exists(const String& path);
+    bool exists(const std::string& path);
 
     bool remove(const char* path);
-    bool remove(const String& path);
+    bool remove(const std::string& path);
 
     bool rename(const char* pathFrom, const char* pathTo);
-    bool rename(const String& pathFrom, const String& pathTo);
+    bool rename(const std::string& pathFrom, const std::string& pathTo);
 
     bool mkdir(const char *path);
-    bool mkdir(const String &path);
+    bool mkdir(const std::string &path);
 
     bool rmdir(const char *path);
-    bool rmdir(const String &path);
+    bool rmdir(const std::string &path);
 
 
 protected:

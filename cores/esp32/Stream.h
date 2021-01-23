@@ -115,8 +115,8 @@ public:
     // returns the number of characters placed in the buffer (0 means no valid data found)
 
     // Arduino String functions to be added here
-    virtual String readString();
-    String readStringUntil(char terminator);
+    virtual std::string readString();
+    std::string readStringUntil(char terminator);
 
 protected:
     long parseInt(char skipChar); // as above but the given skipChar is ignored

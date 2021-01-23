@@ -1,5 +1,4 @@
 set(CORE_SRCS
-  cores/esp32/base64.cpp
   cores/esp32/cbuf.cpp
   cores/esp32/esp32-hal-adc.c
   cores/esp32/esp32-hal-bt.c
@@ -26,17 +25,14 @@ set(CORE_SRCS
   cores/esp32/libb64/cdecode.c
   cores/esp32/libb64/cencode.c
   cores/esp32/main.cpp
-  cores/esp32/MD5Builder.cpp
   cores/esp32/Print.cpp
   cores/esp32/stdlib_noniso.c
   cores/esp32/Stream.cpp
-  cores/esp32/StreamString.cpp
   cores/esp32/USB.cpp
   cores/esp32/USBCDC.cpp
   cores/esp32/wiring_pulse.c
   cores/esp32/wiring_shift.c
   cores/esp32/WMath.cpp
-  cores/esp32/WString.cpp
   )
 
 set(LIBRARY_SRCS

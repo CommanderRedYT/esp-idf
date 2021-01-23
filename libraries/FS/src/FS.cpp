@@ -177,7 +177,7 @@ void File::rewindDirectory(void)
     _p->rewindDirectory();
 }
 
-File FS::open(const String& path, const char* mode)
+File FS::open(const std::string& path, const char* mode)
 {
     return open(path.c_str(), mode);
 }
@@ -199,7 +199,7 @@ bool FS::exists(const char* path)
     return _impl->exists(path);
 }
 
-bool FS::exists(const String& path)
+bool FS::exists(const std::string& path)
 {
     return exists(path.c_str());
 }
@@ -212,7 +212,7 @@ bool FS::remove(const char* path)
     return _impl->remove(path);
 }
 
-bool FS::remove(const String& path)
+bool FS::remove(const std::string& path)
 {
     return remove(path.c_str());
 }
@@ -225,7 +225,7 @@ bool FS::rename(const char* pathFrom, const char* pathTo)
     return _impl->rename(pathFrom, pathTo);
 }
 
-bool FS::rename(const String& pathFrom, const String& pathTo)
+bool FS::rename(const std::string& pathFrom, const std::string& pathTo)
 {
     return rename(pathFrom.c_str(), pathTo.c_str());
 }
@@ -239,7 +239,7 @@ bool FS::mkdir(const char *path)
     return _impl->mkdir(path);
 }
 
-bool FS::mkdir(const String &path)
+bool FS::mkdir(const std::string &path)
 {
     return mkdir(path.c_str());
 }
@@ -252,7 +252,7 @@ bool FS::rmdir(const char *path)
     return _impl->rmdir(path);
 }
 
-bool FS::rmdir(const String &path)
+bool FS::rmdir(const std::string &path)
 {
     return rmdir(path.c_str());
 }

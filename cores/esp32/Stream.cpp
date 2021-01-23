@@ -313,9 +313,9 @@ size_t Stream::readBytesUntil(char terminator, char *buffer, size_t length)
     return index; // return number of characters, not including null terminator
 }
 
-String Stream::readString()
+std::string Stream::readString()
 {
-    String ret;
+    std::string ret;
     int c = timedRead();
     while(c >= 0) {
         ret += (char) c;
@@ -324,9 +324,9 @@ String Stream::readString()
     return ret;
 }
 
-String Stream::readStringUntil(char terminator)
+std::string Stream::readStringUntil(char terminator)
 {
-    String ret;
+    std::string ret;
     int c = timedRead();
     while(c >= 0 && c != terminator) {
         ret += (char) c;

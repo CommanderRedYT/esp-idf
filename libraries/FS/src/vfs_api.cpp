@@ -388,6 +388,19 @@ boolean VFSFileImpl::isDirectory(void)
     return _isDirectory;
 }
 
+namespace {
+bool string_starts_with(std::string const &fullString, std::string const &begin) {
+    return fullString.rfind(begin, 0) == 0;
+}
+bool string_ends_with(std::string const &fullString, std::string const &ending) {
+    if (fullString.length() >= ending.length()) {
+        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+    } else {
+        return false;
+    }
+}
+}
+
 FileImplPtr VFSFileImpl::openNextFile(const char* mode)
 {
     if(!_isDirectory || !_d) {
@@ -400,9 +413,9 @@ FileImplPtr VFSFileImpl::openNextFile(const char* mode)
     if(file->d_type != DT_REG && file->d_type != DT_DIR) {
         return openNextFile(mode);
     }
-    String fname = String(file->d_name);
-    String name = String(_path);
-    if(!fname.startsWith("/") && !name.endsWith("/")) {
+    std::string fname = std::string(file->d_name);
+    std::string name = std::string(_path);
+    if(!string_starts_with(fname, "/") && !string_ends_with(name, "/")) {
         name += "/";
     }
     name += fname;
