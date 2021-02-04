@@ -1,5 +1,4 @@
 set(CORE_SRCS
-  cores/esp32/cbuf.cpp
   cores/esp32/esp32-hal-adc.c
   cores/esp32/esp32-hal-bt.c
   cores/esp32/esp32-hal-cpu.c
@@ -36,7 +35,6 @@ set(CORE_SRCS
   )
 
 set(LIBRARY_SRCS
-  libraries/AsyncUDP/src/AsyncUDP.cpp
   libraries/FS/src/FS.cpp
   libraries/FS/src/vfs_api.cpp
   libraries/SPIFFS/src/SPIFFS.cpp
@@ -47,7 +45,6 @@ set(LIBRARY_SRCS
 set(includedirs
   variants/esp32/
   cores/esp32/
-  libraries/AsyncUDP/src
   libraries/FS/src
   libraries/SPIFFS/src
   libraries/Wire/src
