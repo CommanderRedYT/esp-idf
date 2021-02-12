@@ -117,9 +117,6 @@ typedef uint8_t byte;
 typedef unsigned int word;
 
 #ifdef __cplusplus
-void setup(void);
-void loop(void);
-
 long random(long, long);
 #endif
 void randomSeed(unsigned long);
@@ -128,10 +125,6 @@ long map(long, long, long, long, long);
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void init(void);
-void initVariant(void);
-void initArduino(void);
 
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout);
