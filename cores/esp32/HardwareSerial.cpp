@@ -85,9 +85,9 @@ void HardwareSerial::begin(unsigned long baud, uint32_t config, int8_t rxPin, in
 
     if(!baud) {
         uartStartDetectBaudrate(_uart);
-        time_t startMillis = millis();
+        time_t startMillis = esp_timer_get_time() / 1000ULL;
         unsigned long detectedBaudRate = 0;
-        while(millis() - startMillis < timeout_ms && !(detectedBaudRate = uartDetectBaudrate(_uart))) {
+        while((esp_timer_get_time() / 1000ULL) - startMillis < timeout_ms && !(detectedBaudRate = uartDetectBaudrate(_uart))) {
             yield();
         }
 

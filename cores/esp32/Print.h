@@ -72,6 +72,12 @@ public:
         return write((const uint8_t *) buffer, size);
     }
 
+
+    virtual int available() = 0;
+    virtual int read() = 0;
+    virtual int peek() = 0;
+    virtual void flush() = 0;
+
     size_t printf(const char * format, ...)  __attribute__ ((format (printf, 2, 3)));
     size_t print(const std::string &);
     size_t print(const char[]);

@@ -11,7 +11,6 @@ set(CORE_SRCS
   cores/esp32/esp32-hal-psram.c
   cores/esp32/esp32-hal-sigmadelta.c
   cores/esp32/esp32-hal-spi.c
-  cores/esp32/esp32-hal-time.c
   cores/esp32/esp32-hal-timer.c
   cores/esp32/esp32-hal-tinyusb.c
   cores/esp32/esp32-hal-touch.c
@@ -25,7 +24,6 @@ set(CORE_SRCS
   cores/esp32/libb64/cencode.c
   cores/esp32/Print.cpp
   cores/esp32/stdlib_noniso.c
-  cores/esp32/Stream.cpp
   cores/esp32/USB.cpp
   cores/esp32/USBCDC.cpp
   cores/esp32/wiring_pulse.c

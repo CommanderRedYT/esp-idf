@@ -23,6 +23,7 @@
 
 #include <memory>
 #include <Arduino.h>
+#include "Print.h"
 
 namespace fs
 {
@@ -44,11 +45,11 @@ enum SeekMode {
     SeekEnd = 2
 };
 
-class File : public Stream
+class File : public Print
 {
 public:
     File(FileImplPtr p = FileImplPtr()) : _p(p) {
-        _timeout = 0;
+        //_timeout = 0;
     }
 
     size_t write(uint8_t) override;

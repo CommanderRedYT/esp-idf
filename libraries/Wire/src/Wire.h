@@ -28,14 +28,14 @@
 #include <esp32-hal.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
-#include "Stream.h"
+#include "Print.h"
 
 #define STICKBREAKER 'V1.1.0'
 #define I2C_BUFFER_LENGTH 128
 typedef void(*user_onRequest)(void);
 typedef void(*user_onReceive)(uint8_t*, int);
 
-class TwoWire: public Stream
+class TwoWire: public Print
 {
 protected:
     uint8_t num;

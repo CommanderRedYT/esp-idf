@@ -15,11 +15,12 @@
 
 #include <inttypes.h>
 
-#include "Stream.h"
 #include "esp32-hal.h"
 #if CONFIG_USB_CDC_ENABLED
 
 #include "esp_event.h"
+
+#include "Print.h"
 
 ESP_EVENT_DECLARE_BASE(ARDUINO_USB_CDC_EVENTS);
 
@@ -49,7 +50,7 @@ typedef union {
     } rx;
 } arduino_usb_cdc_event_data_t;
 
-class USBCDC: public Stream
+class USBCDC: public Print
 {
 public:
     USBCDC(uint8_t itf=0);

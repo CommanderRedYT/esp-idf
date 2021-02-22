@@ -47,10 +47,10 @@
 
 #include <inttypes.h>
 
-#include "Stream.h"
+#include "Print.h"
 #include "esp32-hal.h"
 
-class HardwareSerial: public Stream
+class HardwareSerial: public Print
 {
 public:
     HardwareSerial(int uart_nr);

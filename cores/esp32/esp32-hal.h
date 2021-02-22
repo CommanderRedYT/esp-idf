@@ -89,7 +89,6 @@ void yield(void);
 float temperatureRead();
 
 unsigned long micros();
-unsigned long millis();
 void delay(uint32_t);
 void delayMicroseconds(uint32_t us);
 
