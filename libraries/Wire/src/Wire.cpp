@@ -29,6 +29,7 @@ extern "C" {
 }
 
 #include "esp32-hal-i2c.h"
+#include "esp32-hal-log.h"
 #include "Wire.h"
 #include "Arduino.h"
 

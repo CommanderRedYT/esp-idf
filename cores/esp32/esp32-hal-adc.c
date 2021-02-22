@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "esp32-hal-adc.h"
+#include "esp32-hal-log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_attr.h"

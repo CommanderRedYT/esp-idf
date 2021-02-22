@@ -23,6 +23,8 @@ extern "C" {
 
 #include "SPIFFS.h"
 
+#include "esp32-hal-log.h"
+
 using namespace fs;
 
 class SPIFFSImpl : public VFSImpl

@@ -5,6 +5,7 @@
 
 #include "pins_arduino.h"
 #include "HardwareSerial.h"
+#include "esp32-hal-log.h"
 
 #if CONFIG_IDF_TARGET_ESP32
 

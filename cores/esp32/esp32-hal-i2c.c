@@ -24,6 +24,7 @@
 #include "soc/dport_reg.h"
 #include "esp_attr.h"
 #include "esp32-hal-cpu.h" // cpu clock change support 31DEC2018
+#include "esp32-hal-log.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+

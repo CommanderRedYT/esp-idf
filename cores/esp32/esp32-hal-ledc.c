@@ -17,6 +17,7 @@
 #include "freertos/task.h"
 #include "freertos/semphr.h"
 #include "esp32-hal-matrix.h"
+#include "esp32-hal-log.h"
 #include "soc/dport_reg.h"
 #include "soc/ledc_reg.h"
 #include "soc/ledc_struct.h"

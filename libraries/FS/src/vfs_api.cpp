@@ -14,6 +14,8 @@
 
 #include "vfs_api.h"
 
+#include "esp32-hal-log.h"
+
 using namespace fs;
 
 FileImplPtr VFSImpl::open(const char* path, const char* mode)

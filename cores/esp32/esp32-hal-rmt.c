@@ -17,6 +17,7 @@
 #include "freertos/semphr.h"
 
 #include "esp32-hal.h"
+#include "esp32-hal-log.h"
 #include "esp8266-compat.h"
 #include "soc/gpio_reg.h"
 #include "soc/rmt_struct.h"
