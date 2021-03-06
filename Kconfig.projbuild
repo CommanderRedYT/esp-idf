@@ -9,58 +9,6 @@ config ENABLE_ARDUINO_DEPENDS
     select MEMMAP_SMP
     default "y"
 
-config AUTOSTART_ARDUINO
-    bool "Autostart Arduino setup and loop on boot"
-    default "n"
-    help
-        Enabling this option will implement app_main and start Arduino.
-        All you need to implement in your main.cpp is setup() and loop()
-        and include Arduino.h
-        If disabled, you can call initArduino() to run any preparations
-        required by the framework
-
-choice ARDUINO_RUNNING_CORE
-    bool "Core on which Arduino's setup() and loop() are running"
-    default ARDUINO_RUN_CORE1
-    help
-        Select on which core Arduino's setup() and loop() functions run
-
-    config ARDUINO_RUN_CORE0
-        bool "CORE 0"
-    config ARDUINO_RUN_CORE1
-        bool "CORE 1"
-    config ARDUINO_RUN_NO_AFFINITY
-        bool "BOTH"
-
-endchoice
-
-config ARDUINO_RUNNING_CORE
-    int
-    default 0 if ARDUINO_RUN_CORE0
-    default 1 if ARDUINO_RUN_CORE1
-    default -1 if ARDUINO_RUN_NO_AFFINITY
-
-choice ARDUINO_EVENT_RUNNING_CORE
-    bool "Core on which Arduino's event handler is running"
-    default ARDUINO_EVENT_RUN_CORE1
-    help
-        Select on which core Arduino's WiFi.onEvent() run
-
-    config ARDUINO_EVENT_RUN_CORE0
-        bool "CORE 0"
-    config ARDUINO_EVENT_RUN_CORE1
-        bool "CORE 1"
-    config ARDUINO_EVENT_RUN_NO_AFFINITY
-        bool "BOTH"
-
-endchoice
-
-config ARDUINO_EVENT_RUNNING_CORE
-    int
-    default 0 if ARDUINO_EVENT_RUN_CORE0
-    default 1 if ARDUINO_EVENT_RUN_CORE1
-    default -1 if ARDUINO_EVENT_RUN_NO_AFFINITY
-
 config ARDUINO_ISR_IRAM
     bool "Run interrupts in IRAM"
     default "n"
@@ -129,33 +77,6 @@ config ARDUHAL_ESP_LOG
         #endif
 
 endmenu
-
-choice ARDUHAL_PARTITION_SCHEME
-    bool "Used partition scheme"
-    default ARDUHAL_PARTITION_SCHEME_DEFAULT
-    help
-        Specify which partition scheme to be used.
-
-config ARDUHAL_PARTITION_SCHEME_DEFAULT
-    bool "Default"
-config ARDUHAL_PARTITION_SCHEME_MINIMAL
-    bool "Minimal (for 2MB FLASH)"
-config ARDUHAL_PARTITION_SCHEME_NO_OTA
-    bool "No OTA (for large apps)"
-config ARDUHAL_PARTITION_SCHEME_HUGE_APP
-    bool "Huge App (for very large apps)"
-config ARDUHAL_PARTITION_SCHEME_MIN_SPIFFS
-    bool "Minimal SPIFFS (for large apps with OTA)"
-endchoice
-
-config ARDUHAL_PARTITION_SCHEME
-    string
-    default "default" if ARDUHAL_PARTITION_SCHEME_DEFAULT
-    default "minimal" if ARDUHAL_PARTITION_SCHEME_MINIMAL
-    default "no_ota" if ARDUHAL_PARTITION_SCHEME_NO_OTA
-    default "huge_app" if ARDUHAL_PARTITION_SCHEME_HUGE_APP
-    default "min_spiffs" if ARDUHAL_PARTITION_SCHEME_MIN_SPIFFS
-
 
 config ARDUINO_SELECTIVE_COMPILATION
     bool "Include only specific Arduino libraries"

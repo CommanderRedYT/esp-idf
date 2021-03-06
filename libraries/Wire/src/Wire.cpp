@@ -289,36 +289,6 @@ void TwoWire::flush(void)
     i2cFlush(i2c); // cleanup
 }
 
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop)
-{
-    return requestFrom(static_cast<uint16_t>(address), static_cast<size_t>(quantity), static_cast<bool>(sendStop));
-}
-
-uint8_t TwoWire::requestFrom(uint16_t address, uint8_t quantity, uint8_t sendStop)
-{
-    return requestFrom(address, static_cast<size_t>(quantity), static_cast<bool>(sendStop));
-}
-
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity)
-{
-    return requestFrom(static_cast<uint16_t>(address), static_cast<size_t>(quantity), true);
-}
-
-uint8_t TwoWire::requestFrom(uint16_t address, uint8_t quantity)
-{
-    return requestFrom(address, static_cast<size_t>(quantity), true);
-}
-
-uint8_t TwoWire::requestFrom(int address, int quantity)
-{
-    return requestFrom(static_cast<uint16_t>(address), static_cast<size_t>(quantity), true);
-}
-
-uint8_t TwoWire::requestFrom(int address, int quantity, int sendStop)
-{
-    return static_cast<uint8_t>(requestFrom(static_cast<uint16_t>(address), static_cast<size_t>(quantity), static_cast<bool>(sendStop)));
-}
-
 void TwoWire::beginTransmission(int address)
 {
     beginTransmission(static_cast<uint16_t>(address));

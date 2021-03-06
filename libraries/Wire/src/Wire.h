@@ -94,13 +94,7 @@ public:
     uint8_t endTransmission(bool sendStop);
     uint8_t endTransmission(void);
 
-    uint8_t requestFrom(uint16_t address, uint8_t size, bool sendStop);
-    uint8_t requestFrom(uint16_t address, uint8_t size, uint8_t sendStop);
-    uint8_t requestFrom(uint16_t address, uint8_t size);
-    uint8_t requestFrom(uint8_t address, uint8_t size, uint8_t sendStop);
-    uint8_t requestFrom(uint8_t address, uint8_t size);
-    uint8_t requestFrom(int address, int size, int sendStop);
-    uint8_t requestFrom(int address, int size);
+    uint8_t requestFrom(uint16_t address, uint8_t size, bool sendStop=true);
 
     size_t write(uint8_t);
     size_t write(const uint8_t *, size_t);
