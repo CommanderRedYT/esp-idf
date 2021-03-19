@@ -108,11 +108,13 @@ int __wrap_mbedtls_ssl_read(mbedtls_ssl_context *ssl, unsigned char *buf, size_t
 void __wrap_mbedtls_ssl_free(mbedtls_ssl_context *ssl)
 {
     if (ssl->out_buf) {
+        ssl->out_buf -= SSL_BUF_HEAD_OFFSET_SIZE;
         mbedtls_free(ssl->out_buf);
         ssl->out_buf = NULL;
     }
 
     if (ssl->in_buf) {
+        ssl->in_buf -= SSL_BUF_HEAD_OFFSET_SIZE;
         mbedtls_free(ssl->in_buf);
         ssl->in_buf = NULL;
     }

@@ -41,6 +41,13 @@
  \
 })
 
+#define SSL_BUF_HEAD_OFFSET_SIZE (sizeof(unsigned int) + sizeof(esp_mbedtls_ssl_buf_states))
+
+typedef enum {
+    ESP_MBEDTLS_SSL_BUF_CACHED,
+    ESP_MBEDTLS_SSL_BUF_NO_CACHED,
+} esp_mbedtls_ssl_buf_states;
+
 int esp_mbedtls_setup_tx_buffer(mbedtls_ssl_context *ssl);
 
 void esp_mbedtls_setup_rx_buffer(mbedtls_ssl_context *ssl);
