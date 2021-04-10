@@ -39,7 +39,7 @@ static void modbus_tcp_slave_task(void *pvParameters)
                                                 portMAX_DELAY);
         // Check if stack started then poll for data
         if (status & MB_EVENT_STACK_STARTED) {
-            (void)eMBPoll(); // allow stack to process data
+            (void)eMBPoll(portMAX_DELAY); // allow stack to process data
         }
     }
 }
@@ -150,7 +150,7 @@ static esp_err_t mbc_tcp_slave_get_param_info(mb_param_info_t* reg_info, uint32_
 #pragma GCC diagnostic ignored "-Wtype-limits"
 
 // Initialization of Modbus controller
-esp_err_t mbc_tcp_slave_create(mb_slave_interface_t** handler, bool start_controller_task)
+esp_err_t mbc_tcp_slave_create(void** handler, bool start_controller_task)
 {
     // Allocate space for options
     if (mbs_interface_ptr == NULL) {
