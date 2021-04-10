@@ -41,8 +41,11 @@
 
 #include "sdkconfig.h" // for KConfig options
 
+#include "port.h"
+
 #ifdef __cplusplus
-PR_BEGIN_EXTERN_C
+//PR_BEGIN_EXTERN_C
+extern "C" {
 #endif
 /* ----------------------- Defines ------------------------------------------*/
 /*! \defgroup modbus_cfg Modbus Configuration
@@ -158,7 +161,8 @@ PR_BEGIN_EXTERN_C
 
 /*! @} */
 #ifdef __cplusplus
-    PR_END_EXTERN_C
+//    PR_END_EXTERN_C
+    }
 #endif
 
 #if MB_MASTER_RTU_ENABLED || MB_MASTER_ASCII_ENABLED || MB_MASTER_TCP_ENABLED
