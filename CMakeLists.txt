@@ -19,7 +19,6 @@ set(CORE_SRCS
   cores/esp32/FunctionalInterrupt.cpp
   cores/esp32/HardwareSerial.cpp
   cores/esp32/IPv6Address.cpp
-  cores/esp32/libb64/cdecode.c
   cores/esp32/Print.cpp
   cores/esp32/stdlib_noniso.c
   cores/esp32/USB.cpp
@@ -46,7 +45,6 @@ set(includedirs
   )
 
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
-set(priv_includes cores/esp32/libb64)
 set(requires spi_flash mbedtls esp_adc_cal wifi_provisioning)
 set(priv_requires nvs_flash spiffs bootloader_support openssl tinyusb main)
 
