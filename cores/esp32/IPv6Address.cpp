@@ -19,7 +19,6 @@
 
 #include <Arduino.h>
 #include <IPv6Address.h>
-#include <Print.h>
 
 IPv6Address::IPv6Address()
 {
@@ -47,19 +46,19 @@ bool IPv6Address::operator==(const uint8_t* addr) const
     return memcmp(addr, _address.bytes, sizeof(_address.bytes)) == 0;
 }
 
-size_t IPv6Address::printTo(Print& p) const
-{
-    size_t n = 0;
-    for(int i = 0; i < 16; i+=2) {
-        if(i){
-            n += p.print(':');
-        }
-        n += p.printf("%02x", _address.bytes[i]);
-        n += p.printf("%02x", _address.bytes[i+1]);
+//size_t IPv6Address::printTo(Print& p) const
+//{
+//    size_t n = 0;
+//    for(int i = 0; i < 16; i+=2) {
+//        if(i){
+//            n += p.print(':');
+//        }
+//        n += p.printf("%02x", _address.bytes[i]);
+//        n += p.printf("%02x", _address.bytes[i+1]);
 
-    }
-    return n;
-}
+//    }
+//    return n;
+//}
 
 std::string IPv6Address::toString() const
 {

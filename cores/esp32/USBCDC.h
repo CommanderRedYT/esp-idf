@@ -20,8 +20,6 @@
 
 #include "esp_event.h"
 
-#include "Print.h"
-
 ESP_EVENT_DECLARE_BASE(ARDUINO_USB_CDC_EVENTS);
 
 typedef enum {
@@ -50,7 +48,7 @@ typedef union {
     } rx;
 } arduino_usb_cdc_event_data_t;
 
-class USBCDC: public Print
+class USBCDC
 {
 public:
     USBCDC(uint8_t itf=0);

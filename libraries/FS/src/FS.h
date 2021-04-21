@@ -23,7 +23,6 @@
 
 #include <memory>
 #include <Arduino.h>
-#include "Print.h"
 
 namespace fs
 {
@@ -45,19 +44,19 @@ enum SeekMode {
     SeekEnd = 2
 };
 
-class File : public Print
+class File
 {
 public:
     File(FileImplPtr p = FileImplPtr()) : _p(p) {
         //_timeout = 0;
     }
 
-    size_t write(uint8_t) override;
-    size_t write(const uint8_t *buf, size_t size) override;
-    int available() override;
-    int read() override;
-    int peek() override;
-    void flush() override;
+    size_t write(uint8_t);
+    size_t write(const uint8_t *buf, size_t size);
+    int available();
+    int read();
+    int peek();
+    void flush();
     size_t read(uint8_t* buf, size_t size);
     size_t readBytes(char *buffer, size_t length)
     {

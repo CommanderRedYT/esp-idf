@@ -23,11 +23,9 @@
 #include <stdint.h>
 #include <string>
 
-#include <Printable.h>
-
 // A class to make it easier to handle and pass around IP addresses
 
-class IPv6Address: public Printable
+class IPv6Address
 {
 private:
     union {
@@ -49,7 +47,6 @@ public:
     IPv6Address();
     IPv6Address(const uint8_t *address);
     IPv6Address(const uint32_t *address);
-    virtual ~IPv6Address() {}
 
     bool fromString(const char *address);
     bool fromString(const std::string &address) { return fromString(address.c_str()); }
@@ -84,7 +81,7 @@ public:
     // Overloaded copy operators to allow initialisation of IPv6Address objects from other types
     IPv6Address& operator=(const uint8_t *address);
 
-    virtual size_t printTo(Print& p) const;
+//    virtual size_t printTo(Print& p) const;
     std::string toString() const;
 
     friend class UDP;

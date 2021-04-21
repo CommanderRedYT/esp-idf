@@ -47,10 +47,11 @@
 
 #include <inttypes.h>
 
-#include "Print.h"
+#include <string_view>
+
 #include "esp32-hal.h"
 
-class HardwareSerial: public Print
+class HardwareSerial
 {
 public:
     HardwareSerial(int uart_nr);
@@ -69,32 +70,7 @@ public:
     }
     void flush(void);
     void flush( bool txOnly);
-    size_t write(uint8_t);
-    size_t write(const uint8_t *buffer, size_t size);
-    inline size_t write(const char * buffer, size_t size)
-    {
-        return write((uint8_t*) buffer, size);
-    }
-    inline size_t write(const char * s)
-    {
-        return write((uint8_t*) s, strlen(s));
-    }
-    inline size_t write(unsigned long n)
-    {
-        return write((uint8_t) n);
-    }
-    inline size_t write(long n)
-    {
-        return write((uint8_t) n);
-    }
-    inline size_t write(unsigned int n)
-    {
-        return write((uint8_t) n);
-    }
-    inline size_t write(int n)
-    {
-        return write((uint8_t) n);
-    }
+    size_t write(std::string_view buf);
     uint32_t baudRate();
     operator bool() const;
 

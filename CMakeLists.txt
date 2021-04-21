@@ -19,7 +19,6 @@ set(CORE_SRCS
   cores/esp32/FunctionalInterrupt.cpp
   cores/esp32/HardwareSerial.cpp
   cores/esp32/IPv6Address.cpp
-  cores/esp32/Print.cpp
   cores/esp32/stdlib_noniso.c
   cores/esp32/USB.cpp
   cores/esp32/USBCDC.cpp
