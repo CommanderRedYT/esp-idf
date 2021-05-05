@@ -112,9 +112,6 @@ void HardwareSerial::updateBaudRate(unsigned long baud)
 
 void HardwareSerial::end()
 {
-    if(uartGetDebug() == _uart_nr) {
-        uartSetDebug(0);
-    }
     log_v("pins %d %d",_tx_pin, _rx_pin);
     uartEnd(_uart, _tx_pin, _rx_pin);
     _uart = 0;
@@ -122,20 +119,6 @@ void HardwareSerial::end()
 
 size_t HardwareSerial::setRxBufferSize(size_t new_size) {
     return uartResizeRxBuffer(_uart, new_size);
-}
-
-void HardwareSerial::setDebugOutput(bool en)
-{
-    if(_uart == 0) {
-        return;
-    }
-    if(en) {
-        uartSetDebug(_uart);
-    } else {
-        if(uartGetDebug() == _uart_nr) {
-            uartSetDebug(NULL);
-        }
-    }
 }
 
 int HardwareSerial::available(void)

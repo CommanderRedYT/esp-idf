@@ -102,7 +102,7 @@ bool addApbChangeCallback(void * arg, apb_change_cb_t cb){
         // look for duplicate callbacks
         while( (r != NULL ) && !((r->cb == cb) && ( r->arg == arg))) r = r->next;
         if (r) {
-            log_e("duplicate func=%08X arg=%08X",c->cb,c->arg);
+            log_e("duplicate func=%08X arg=%08X",(unsigned int)c->cb,(unsigned int)c->arg);
             free(c);
             xSemaphoreGive(apb_change_lock);
             return false;
@@ -124,7 +124,7 @@ bool removeApbChangeCallback(void * arg, apb_change_cb_t cb){
     // look for matching callback
     while( (r != NULL ) && !((r->cb == cb) && ( r->arg == arg))) r = r->next;
     if ( r == NULL ) {
-        log_e("not found func=%08X arg=%08X",cb,arg);
+        log_e("not found func=%08X arg=%08X",(unsigned int)cb,(unsigned int)arg);
         xSemaphoreGive(apb_change_lock);
         return false;
         }

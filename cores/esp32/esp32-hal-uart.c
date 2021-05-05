@@ -59,8 +59,6 @@
 #define UART_INTR_SOURCE(u) ((u==0)?ETS_UART0_INTR_SOURCE:( (u==1)?ETS_UART1_INTR_SOURCE:((u==2)?ETS_UART2_INTR_SOURCE:0)))
 #endif
 
-static int s_uart_debug_nr = 0;
-
 struct uart_struct_t {
     uart_dev_t * dev;
 #if !CONFIG_DISABLE_HAL_LOCKS
@@ -565,81 +563,6 @@ static void ARDUINO_ISR_ATTR uart2_write_char(char c)
     ESP_REG(DR_REG_UART2_BASE) = c;
 }
 #endif
-
-void uart_install_putc()
-{
-    switch(s_uart_debug_nr) {
-    case 0:
-        ets_install_putc1((void (*)(char)) &uart0_write_char);
-        break;
-    case 1:
-        ets_install_putc1((void (*)(char)) &uart1_write_char);
-        break;
-#if CONFIG_IDF_TARGET_ESP32
-    case 2:
-        ets_install_putc1((void (*)(char)) &uart2_write_char);
-        break;
-#endif
-    default:
-        ets_install_putc1(NULL);
-        break;
-    }
-}
-
-void uartSetDebug(uart_t* uart)
-{
-    if(uart == NULL || uart->num >= UART_PORTS_NUM) {
-        s_uart_debug_nr = -1;
-        //ets_install_putc1(NULL);
-        //return;
-    } else
-    if(s_uart_debug_nr == uart->num) {
-        return;
-    } else
-    s_uart_debug_nr = uart->num;
-    uart_install_putc();
-}
-
-int uartGetDebug()
-{
-    return s_uart_debug_nr;
-}
-
-int log_printf(const char *format, ...)
-{
-    static char loc_buf[64];
-    char * temp = loc_buf;
-    int len;
-    va_list arg;
-    va_list copy;
-    va_start(arg, format);
-    va_copy(copy, arg);
-    len = vsnprintf(NULL, 0, format, arg);
-    va_end(copy);
-    if(len >= sizeof(loc_buf)){
-        temp = (char*)malloc(len+1);
-        if(temp == NULL) {
-            return 0;
-        }
-    }
-    vsnprintf(temp, len+1, format, arg);
-#if !CONFIG_DISABLE_HAL_LOCKS
-    if(s_uart_debug_nr != -1 && _uart_bus_array[s_uart_debug_nr].lock){
-        xSemaphoreTake(_uart_bus_array[s_uart_debug_nr].lock, portMAX_DELAY);
-        ets_printf("%s", temp);
-        xSemaphoreGive(_uart_bus_array[s_uart_debug_nr].lock);
-    } else {
-        ets_printf("%s", temp);
-    }
-#else
-    ets_printf("%s", temp);
-#endif
-    va_end(arg);
-    if(len >= sizeof(loc_buf)){
-        free(temp);
-    }
-    return len;
-}
 
 /*
  * if enough pulses are detected return the minimum high pulse duration + minimum low pulse duration divided by two. 

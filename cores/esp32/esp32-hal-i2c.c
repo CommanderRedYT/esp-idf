@@ -332,7 +332,7 @@ static void i2cDumpDqData(i2c_t * i2c)
 static void i2cDumpI2c(i2c_t * i2c)
 {
     log_e("i2c=%p",i2c);
-    log_i("dev=%p date=%p",i2c->dev,i2c->dev->date);
+    log_i("dev=%p date=%u",i2c->dev,i2c->dev->date);
 #if !CONFIG_DISABLE_HAL_LOCKS
     log_i("lock=%p",i2c->lock);
 #endif
