@@ -74,7 +74,7 @@ extern "C"
 #endif
 
 #define ARDUHAL_SHORT_LOG_FORMAT(letter, format)  ARDUHAL_LOG_COLOR_ ## letter format ARDUHAL_LOG_RESET_COLOR "\r\n"
-#define ARDUHAL_LOG_FORMAT(letter, format)  "[%s:%u] %s(): " format, __FILE__, __LINE__, __FUNCTION__
+#define ARDUHAL_LOG_FORMAT(letter, format)  "[%s:%u] %s(): " format, (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__), __LINE__, __FUNCTION__
 
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_VERBOSE
 #define log_v(format, ...) ESP_LOGV("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(V, format), ##__VA_ARGS__)
