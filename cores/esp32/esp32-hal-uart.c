@@ -534,36 +534,6 @@ uint32_t uartGetBaudRate(uart_t* uart)
     return ((getApbFrequency()<<4)/clk_div);
 }
 
-static void ARDUINO_ISR_ATTR uart0_write_char(char c)
-{
-#if CONFIG_IDF_TARGET_ESP32
-    while(((ESP_REG(0x01C+DR_REG_UART_BASE) >> UART_TXFIFO_CNT_S) & 0x7F) == 0x7F);
-    ESP_REG(DR_REG_UART_BASE) = c;
-#else
-    while(UART0.status.txfifo_cnt == 0x7F);
-    WRITE_PERI_REG(UART_FIFO_AHB_REG(0), c);
-#endif
-}
-
-static void ARDUINO_ISR_ATTR uart1_write_char(char c)
-{
-#if CONFIG_IDF_TARGET_ESP32
-    while(((ESP_REG(0x01C+DR_REG_UART1_BASE) >> UART_TXFIFO_CNT_S) & 0x7F) == 0x7F);
-    ESP_REG(DR_REG_UART1_BASE) = c;
-#else
-    while(UART1.status.txfifo_cnt == 0x7F);
-    WRITE_PERI_REG(UART_FIFO_AHB_REG(1), c);
-#endif
-}
-
-#if CONFIG_IDF_TARGET_ESP32
-static void ARDUINO_ISR_ATTR uart2_write_char(char c)
-{
-    while(((ESP_REG(0x01C+DR_REG_UART2_BASE) >> UART_TXFIFO_CNT_S) & 0x7F) == 0x7F);
-    ESP_REG(DR_REG_UART2_BASE) = c;
-}
-#endif
-
 /*
  * if enough pulses are detected return the minimum high pulse duration + minimum low pulse duration divided by two. 
  * This equals one bit period. If flag is true the function return inmediately, otherwise it waits for enough pulses.
