@@ -73,8 +73,11 @@ extern "C"
 #define ARDUHAL_LOG_RESET_COLOR
 #endif
 
-#define ARDUHAL_SHORT_LOG_FORMAT(letter, format)  ARDUHAL_LOG_COLOR_ ## letter format ARDUHAL_LOG_RESET_COLOR "\r\n"
+#if CONFIG_LOG_LOCATION
+#define ARDUHAL_LOG_FORMAT(letter, format) format
+#else
 #define ARDUHAL_LOG_FORMAT(letter, format)  "[%s:%u] %s(): " format, (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__), __LINE__, __FUNCTION__
+#endif
 
 #define ARDUHAL_LOG_TAG "ARDUINO"
 
