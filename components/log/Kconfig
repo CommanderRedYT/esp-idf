@@ -44,6 +44,10 @@ menu "Log output"
 
             In order to view these, your terminal program must support ANSI color codes.
 
+    config LOG_LOCATION
+        bool "Show source filename, line number and function name"
+        default "n"
+
     choice LOG_TIMESTAMP_SOURCE
         prompt "Log Timestamps"
         default LOG_TIMESTAMP_SOURCE_RTOS
