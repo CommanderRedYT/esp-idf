@@ -76,49 +76,51 @@ extern "C"
 #define ARDUHAL_SHORT_LOG_FORMAT(letter, format)  ARDUHAL_LOG_COLOR_ ## letter format ARDUHAL_LOG_RESET_COLOR "\r\n"
 #define ARDUHAL_LOG_FORMAT(letter, format)  "[%s:%u] %s(): " format, (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__), __LINE__, __FUNCTION__
 
+#define ARDUHAL_LOG_TAG "ARDUINO"
+
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_VERBOSE
-#define log_v(format, ...) ESP_LOGV("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(V, format), ##__VA_ARGS__)
-#define isr_log_v(format, ...) ESP_LOGV("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(V, format), ##__VA_ARGS__)
+#define log_v(format, ...) ESP_LOGV(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(V, format), ##__VA_ARGS__)
+#define isr_log_v(format, ...) ESP_LOGV(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(V, format), ##__VA_ARGS__)
 #else
 #define log_v(format, ...)
 #define isr_log_v(format, ...)
 #endif
 
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_DEBUG
-#define log_d(format, ...) ESP_LOGD("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(D, format), ##__VA_ARGS__)
-#define isr_log_d(format, ...) ESP_LOGD("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(D, format), ##__VA_ARGS__)
+#define log_d(format, ...) ESP_LOGD(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(D, format), ##__VA_ARGS__)
+#define isr_log_d(format, ...) ESP_LOGD(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(D, format), ##__VA_ARGS__)
 #else
 #define log_d(format, ...)
 #define isr_log_d(format, ...)
 #endif
 
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_INFO
-#define log_i(format, ...) ESP_LOGI("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(I, format), ##__VA_ARGS__)
-#define isr_log_i(format, ...) ESP_LOGI("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(I, format), ##__VA_ARGS__)
+#define log_i(format, ...) ESP_LOGI(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(I, format), ##__VA_ARGS__)
+#define isr_log_i(format, ...) ESP_LOGI(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(I, format), ##__VA_ARGS__)
 #else
 #define log_i(format, ...)
 #define isr_log_i(format, ...)
 #endif
 
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_WARN
-#define log_w(format, ...) ESP_LOGW("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(W, format), ##__VA_ARGS__)
-#define isr_log_w(format, ...) ESP_LOGW("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(W, format), ##__VA_ARGS__)
+#define log_w(format, ...) ESP_LOGW(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(W, format), ##__VA_ARGS__)
+#define isr_log_w(format, ...) ESP_LOGW(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(W, format), ##__VA_ARGS__)
 #else
 #define log_w(format, ...)
 #define isr_log_w(format, ...)
 #endif
 
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_ERROR
-#define log_e(format, ...) ESP_LOGE("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
-#define isr_log_e(format, ...) ESP_LOGE("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
+#define log_e(format, ...) ESP_LOGE(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
+#define isr_log_e(format, ...) ESP_LOGE(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
 #else
 #define log_e(format, ...)
 #define isr_log_e(format, ...)
 #endif
 
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_NONE
-#define log_n(format, ...) ESP_LOGE("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
-#define isr_log_n(format, ...) ESP_LOGE("ARDUHAL_LOG", ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
+#define log_n(format, ...) ESP_LOGE(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
+#define isr_log_n(format, ...) ESP_LOGE(ARDUHAL_LOG_TAG, ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
 #else
 #define log_n(format, ...)
 #define isr_log_n(format, ...)
