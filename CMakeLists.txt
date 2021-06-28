@@ -29,6 +29,7 @@ set(CORE_SRCS
 set(LIBRARY_SRCS
   libraries/FS/src/FS.cpp
   libraries/FS/src/vfs_api.cpp
+  libraries/SPI/src/SPI.cpp
   libraries/SPIFFS/src/SPIFFS.cpp
   libraries/Wire/src/Wire.cpp
   )
@@ -38,6 +39,7 @@ set(includedirs
   variants/esp32/
   cores/esp32/
   libraries/FS/src
+  libraries/SPI/src
   libraries/SPIFFS/src
   libraries/Wire/src
   )
