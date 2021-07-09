@@ -350,7 +350,7 @@ void esp_panic_handler(panic_info_t *info)
 }
 
 
-void __attribute__((noreturn)) panic_abort(const char *details)
+void panic_abort(const char *details)
 {
     g_panic_abort = true;
     s_panic_abort_details = (char*) details;
