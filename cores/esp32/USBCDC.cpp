@@ -75,7 +75,7 @@ static size_t tinyusb_cdc_write(uint8_t itf, const uint8_t *buffer, size_t size)
     while(tosend){
         uint32_t space = tud_cdc_n_write_available(itf);
         if(!space){
-            delay(1);
+            vTaskDelay(1 / portTICK_PERIOD_MS);
             continue;
         }
         if(tosend < space){

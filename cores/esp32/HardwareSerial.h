@@ -26,7 +26,7 @@
  Baudrate detection example usage (detection on Serial1):
    void setup() {
      Serial.begin(115200);
-     delay(100);
+     vTaskDelay(100 / portTICK_PERIOD_MS);
      Serial.println();
 
      Serial1.begin(0, SERIAL_8N1, -1, -1, true, 11000UL);  // Passing 0 for baudrate to detect it, the last parameter is a timeout in ms

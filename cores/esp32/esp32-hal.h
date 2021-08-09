@@ -80,7 +80,6 @@ void yield(void);
 float temperatureRead();
 
 unsigned long micros();
-void delay(uint32_t);
 void delayMicroseconds(uint32_t us);
 
 #ifdef __cplusplus

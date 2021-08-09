@@ -65,11 +65,6 @@ unsigned long ARDUINO_ISR_ATTR micros()
     return (unsigned long) (esp_timer_get_time());
 }
 
-void delay(uint32_t ms)
-{
-    vTaskDelay(ms / portTICK_PERIOD_MS);
-}
-
 void ARDUINO_ISR_ATTR delayMicroseconds(uint32_t us)
 {
     uint32_t m = micros();

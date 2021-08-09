@@ -1146,7 +1146,7 @@ i2c_err_t i2cProcQueue(i2c_t * i2c, uint32_t *readCount, uint16_t timeOutMillis)
         if(multiMaster){// try to let the bus clear by its self
             uint32_t timeOutTick = millis();
             while((i2c->dev->status_reg.bus_busy)&&(millis()-timeOutTick<timeOutMillis())){
-              delay(2); // allow task switch
+              vTaskDelay(2 / portTICK_PERIOD_MS); // allow task switch
             }
         }
         if(i2c->dev->status_reg.bus_busy){ // still busy, so die
