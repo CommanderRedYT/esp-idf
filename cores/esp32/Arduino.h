@@ -115,10 +115,6 @@ typedef bool boolean;
 typedef uint8_t byte;
 typedef unsigned int word;
 
-#ifdef __cplusplus
-long random(long, long);
-#endif
-void randomSeed(unsigned long);
 long map(long, long, long, long, long);
 
 #ifdef __cplusplus
@@ -155,8 +151,6 @@ uint16_t makeWord(byte h, byte l);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 
-// WMath prototypes
-long random(long);
 #endif /* __cplusplus */
 
 #define _min(a,b) ((a)<(b)?(a):(b))
