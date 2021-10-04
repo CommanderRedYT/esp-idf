@@ -70,7 +70,8 @@ public:
     }
     void flush(void);
     void flush( bool txOnly);
-    size_t write(std::string_view buf);
+    size_t write(std::string_view buf) { return write(std::basic_string_view<unsigned char>{reinterpret_cast<const unsigned char *>(buf.data()), buf.size()}); }
+    size_t write(std::basic_string_view<unsigned char> buf);
     uint32_t baudRate();
     operator bool() const;
 

@@ -174,9 +174,9 @@ void HardwareSerial::flush(bool txOnly)
     uartFlushTxOnly(_uart, txOnly);
 }
 
-size_t HardwareSerial::write(std::string_view buf)
+size_t HardwareSerial::write(std::basic_string_view<unsigned char> buf)
 {
-    uartWriteBuf(_uart, (const uint8_t *)buf.data(), buf.size());
+    uartWriteBuf(_uart, buf.data(), buf.size());
     return buf.size();
 }
 uint32_t  HardwareSerial::baudRate()
