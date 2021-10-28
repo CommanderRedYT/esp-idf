@@ -147,7 +147,7 @@ esp_log_level_t esp_log_level_get(const char* tag)
     // Look for the tag in cache first, then in the linked list of all tags
     if (!get_cached_log_level(tag, &level_for_tag)) {
         if (!get_uncached_log_level(tag, &level_for_tag)) {
-            level_for_tag = s_log_default_level;
+            level_for_tag = esp_log_default_level;
         }
         add_to_cache(tag, level_for_tag);
 #ifdef LOG_BUILTIN_CHECKS
