@@ -90,8 +90,8 @@ public:
     void beginTransmission(uint8_t address);
     void beginTransmission(int address);
 
-    uint8_t endTransmission(bool sendStop);
-    uint8_t endTransmission(void);
+    i2c_err_t endTransmission(bool sendStop);
+    i2c_err_t endTransmission(void);
 
     uint8_t requestFrom(uint16_t address, uint8_t size, bool sendStop=true);
 
@@ -128,6 +128,8 @@ public:
 
     uint32_t setDebugFlags( uint32_t setBits, uint32_t resetBits);
     bool busy();
+
+    i2c_err_t getLastError() const { return last_error; }
 };
 
 extern TwoWire Wire;

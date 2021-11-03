@@ -169,7 +169,7 @@ void TwoWire::beginTransmission(uint16_t address)
 
 /*stickbreaker isr
  */
-uint8_t TwoWire::endTransmission(bool sendStop)  // Assumes Wire.beginTransaction(), Wire.write()
+i2c_err_t TwoWire::endTransmission(bool sendStop)  // Assumes Wire.beginTransaction(), Wire.write()
 {
     if(transmitting == 1) {
             // txlength is howmany bytes in txbuffer have been use
@@ -299,7 +299,7 @@ void TwoWire::beginTransmission(uint8_t address)
     beginTransmission(static_cast<uint16_t>(address));
 }
 
-uint8_t TwoWire::endTransmission(void)
+i2c_err_t TwoWire::endTransmission(void)
 {
     return endTransmission(true);
 }
