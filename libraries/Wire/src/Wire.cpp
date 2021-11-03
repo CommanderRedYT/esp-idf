@@ -28,10 +28,33 @@ extern "C" {
 #include <inttypes.h>
 }
 
+#include <esp_log.h>
+#include <futurecpp.h>
+#include <fmt/core.h>
+
 #include "esp32-hal-i2c.h"
 #include "esp32-hal-log.h"
 #include "Wire.h"
 #include "Arduino.h"
+
+std::string toString(i2c_err_t val)
+{
+    switch (val)
+    {
+    case I2C_ERROR_OK: return "I2C_ERROR_OK";
+    case I2C_ERROR_DEV: return "I2C_ERROR_DEV";
+    case I2C_ERROR_ACK: return "I2C_ERROR_ACK";
+    case I2C_ERROR_TIMEOUT: return "I2C_ERROR_TIMEOUT";
+    case I2C_ERROR_BUS: return "I2C_ERROR_BUS";
+    case I2C_ERROR_BUSY: return "I2C_ERROR_BUSY";
+    case I2C_ERROR_MEMORY: return "I2C_ERROR_MEMORY";
+    case I2C_ERROR_CONTINUE: return "I2C_ERROR_CONTINUE";
+    case I2C_ERROR_NO_BEGIN: return "I2C_ERROR_NO_BEGIN";
+    default:
+        ESP_LOGW("WIRE", "unknown i2c_err_t(%i)", std::to_underlying(val));
+        return fmt::format("Unknown i2c_err_t({})", std::to_underlying(val));
+    }
+}
 
 TwoWire::TwoWire(uint8_t bus_num)
     :num(bus_num & 1)
