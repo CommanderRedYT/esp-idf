@@ -678,7 +678,8 @@ esp_err_t mbc_serial_master_create(void** handler, bool start_controller_task)
             MB_MASTER_CHECK((status == pdPASS), ESP_ERR_NO_MEM,
                     "mb controller task creation error, xTaskCreate() returns (0x%x).",
                     (uint32_t)status);
-        MB_MASTER_ASSERT(mbm_opts->mbm_task_handle != NULL); // The task is created but handle is incorrect
+            MB_MASTER_ASSERT(mbm_opts->mbm_task_handle != NULL); // The task is created but handle is incorrect
+        }
     }
     else
         mbm_opts->mbm_task_handle = NULL;
