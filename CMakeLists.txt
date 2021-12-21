@@ -12,10 +12,8 @@ set(CORE_SRCS
   cores/esp32/esp32-hal-spi.c
   cores/esp32/esp32-hal-tinyusb.c
   cores/esp32/esp32-hal-touch.c
-  cores/esp32/esp32-hal-uart.c
   cores/esp32/esp32-hal-rmt.c
   cores/esp32/FunctionalInterrupt.cpp
-  cores/esp32/HardwareSerial.cpp
   cores/esp32/IPv6Address.cpp
   cores/esp32/stdlib_noniso.c
   cores/esp32/USB.cpp
