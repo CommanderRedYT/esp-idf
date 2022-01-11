@@ -21,8 +21,10 @@
 #include "esp8266-compat.h"
 #include "soc/gpio_reg.h"
 #include "soc/rmt_struct.h"
-#include "driver/periph_ctrl.h"
+#include "esp_private/periph_ctrl.h"
 #include "esp_intr_alloc.h"
+#include "hal/rmt_ll.h"
+#include "driver/rmt.h"
 
 /**
  * Internal macros
@@ -291,7 +293,7 @@ bool rmtWrite(rmt_obj_t* rmt, rmt_data_t* data, size_t size)
         RMT.conf_ch[channel].conf1.mem_wr_rst = 0;
 
         // set the tx end mark
-        RMTMEM.chan[channel].data32[MAX_DATA_PER_ITTERATION].val = 0;
+        RMTMEM.chan[channel].data32[MAX_DATA_PER_ITTERATION] = 0;
 
         // clear and enable both Tx completed and half tx event
         RMT.int_clr.val = _INT_TX_END(channel);
@@ -324,7 +326,7 @@ bool rmtReadData(rmt_obj_t* rmt, uint32_t* data, size_t size)
     }
 
     size_t i;
-    volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0].val);
+    volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0]);
     for (i=0; i<size; i++) {
         data[i] = *rmt_mem_ptr++;
     }
@@ -608,12 +610,12 @@ bool _rmtSendOnce(rmt_obj_t* rmt, rmt_data_t* data, size_t size, bool continuous
     RMT.apb_conf.fifo_mask = 1;
     if (data && size>0) {
         size_t i;
-        volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0].val);
+        volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0]);
         for (i = 0; i < size; i++) {
             *rmt_mem_ptr++ = data[i].val;
         }
         // tx end mark
-        RMTMEM.chan[channel].data32[size].val = 0;
+        RMTMEM.chan[channel].data32[size] = 0;
     }
 
     RMT_MUTEX_LOCK(channel);
@@ -686,7 +688,7 @@ static void ARDUINO_ISR_ATTR _rmt_isr(void* arg)
                     }
                     uint32_t *data_received = data;
                     for (i = 0; i < g_rmt_objects[ch].data_size; i++ ) {
-                        *data++ = RMTMEM.chan[ch].data32[i].val;
+                        *data++ = RMTMEM.chan[ch].data32[i];
                     }
                     if (g_rmt_objects[ch].cb) {
                         // actually received data ptr                        
@@ -765,16 +767,16 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_second(uint8_t ch)
         // will the remaining data occupy the entire halfbuffer
         if (remaining_size > half_tx_nr) {
             for (i = 0; i < half_tx_nr; i++) {
-                RMTMEM.chan[ch].data32[half_tx_nr+i].val = data[i];
+                RMTMEM.chan[ch].data32[half_tx_nr+i] = data[i];
             }
             g_rmt_objects[ch].data_size -= half_tx_nr;
             g_rmt_objects[ch].data_ptr += half_tx_nr;
         } else {
             for (i = 0; i < half_tx_nr; i++) {
                 if (i < remaining_size) {
-                    RMTMEM.chan[ch].data32[half_tx_nr+i].val = data[i];
+                    RMTMEM.chan[ch].data32[half_tx_nr+i] = data[i];
                 } else {
-                    RMTMEM.chan[ch].data32[half_tx_nr+i].val = 0x000F000F;
+                    RMTMEM.chan[ch].data32[half_tx_nr+i] = 0x000F000F;
                 }
             }
             g_rmt_objects[ch].data_ptr = NULL;
@@ -783,9 +785,9 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_second(uint8_t ch)
     } else if   ((!(g_rmt_objects[ch].tx_state & E_LAST_DATA)) &&
                  (!(g_rmt_objects[ch].tx_state & E_END_TRANS))) {
         for (i = 0; i < half_tx_nr; i++) {
-            RMTMEM.chan[ch].data32[half_tx_nr+i].val = 0x000F000F;
+            RMTMEM.chan[ch].data32[half_tx_nr+i] = 0x000F000F;
         }
-        RMTMEM.chan[ch].data32[half_tx_nr+i].val = 0;
+        RMTMEM.chan[ch].data32[half_tx_nr+i] = 0;
         g_rmt_objects[ch].tx_state |= E_LAST_DATA;
         RMT.conf_ch[ch].conf1.tx_conti_mode = 0;
     } else {
@@ -813,9 +815,9 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_first(uint8_t ch)
 
         // will the remaining data occupy the entire halfbuffer
         if (remaining_size > half_tx_nr) {
-            RMTMEM.chan[ch].data32[0].val = data[0] - 1;
+            RMTMEM.chan[ch].data32[0] = data[0] - 1;
             for (i = 1; i < half_tx_nr; i++) {
-                RMTMEM.chan[ch].data32[i].val = data[i];
+                RMTMEM.chan[ch].data32[i] = data[i];
             }
             g_rmt_objects[ch].tx_state &= ~E_FIRST_HALF;
             // turn off the treshold interrupt
@@ -824,12 +826,12 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_first(uint8_t ch)
             g_rmt_objects[ch].data_size -= half_tx_nr;
             g_rmt_objects[ch].data_ptr += half_tx_nr;
         } else {
-            RMTMEM.chan[ch].data32[0].val = data[0] - 1;
+            RMTMEM.chan[ch].data32[0] = data[0] - 1;
             for (i = 1; i < half_tx_nr; i++) {
                 if (i < remaining_size) {
-                    RMTMEM.chan[ch].data32[i].val = data[i];
+                    RMTMEM.chan[ch].data32[i] = data[i];
                 } else {
-                    RMTMEM.chan[ch].data32[i].val = 0x000F000F;
+                    RMTMEM.chan[ch].data32[i] = 0x000F000F;
                 }
             }
 
@@ -838,9 +840,9 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_first(uint8_t ch)
         }
     } else { 
         for (i = 0; i < half_tx_nr; i++) {
-            RMTMEM.chan[ch].data32[i].val = 0x000F000F;
+            RMTMEM.chan[ch].data32[i] = 0x000F000F;
         }
-        RMTMEM.chan[ch].data32[i].val = 0;
+        RMTMEM.chan[ch].data32[i] = 0;
 
         g_rmt_objects[ch].tx_state &= ~E_FIRST_HALF;
         RMT.tx_lim_ch[ch].limit = 0;
@@ -854,12 +856,15 @@ static int ARDUINO_ISR_ATTR _rmt_get_mem_len(uint8_t channel)
 {
     int block_num = RMT.conf_ch[channel].conf0.mem_size;
     int item_block_len = block_num * 64;
-    volatile rmt_item32_t* data = RMTMEM.chan[channel].data32;
+    volatile uint32_t* data = RMTMEM.chan[channel].data32;
     int idx;
     for(idx = 0; idx < item_block_len; idx++) {
-        if(data[idx].duration0 == 0) {
+        rmt_item32_t helper;
+        helper.val = data[idx];
+
+        if(helper.duration0 == 0) {
             return idx;
-        } else if(data[idx].duration1 == 0) {
+        } else if(helper.duration1 == 0) {
             return idx + 1;
         }
     }
