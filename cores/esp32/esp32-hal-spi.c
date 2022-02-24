@@ -47,7 +47,7 @@
 struct spi_struct_t {
     spi_dev_t * dev;
 #if !CONFIG_DISABLE_HAL_LOCKS
-    xSemaphoreHandle lock;
+    SemaphoreHandle_t lock;
 #endif
     uint8_t num;
 };

@@ -109,7 +109,7 @@ struct rmt_obj_s
 /**
  * Internal variables for channel descriptors
  */
-static xSemaphoreHandle g_rmt_objlocks[MAX_CHANNELS] = {
+static SemaphoreHandle_t g_rmt_objlocks[MAX_CHANNELS] = {
     NULL, NULL, NULL, NULL, 
 #if CONFIG_IDF_TARGET_ESP32
     NULL, NULL, NULL, NULL
@@ -136,7 +136,7 @@ static  intr_handle_t intr_handle;
 
 static bool periph_enabled = false;
 
-static xSemaphoreHandle g_rmt_block_lock = NULL;
+static SemaphoreHandle_t g_rmt_block_lock = NULL;
 
 /**
  * Internal method (private) declarations

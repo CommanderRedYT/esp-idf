@@ -185,7 +185,7 @@ typedef struct {
 struct i2c_struct_t {
     i2c_dev_t * dev;
 #if !CONFIG_DISABLE_HAL_LOCKS
-    xSemaphoreHandle lock;
+    SemaphoreHandle_t lock;
 #endif
     uint8_t num;
     int8_t sda;
@@ -1290,7 +1290,7 @@ i2c_err_t i2cProcQueue(i2c_t * i2c, uint32_t *readCount, uint16_t timeOutMillis)
     // how many ticks should it take to transfer totalBytes through the I2C hardware,
     // add user supplied timeOutMillis to Calculated Value
 
-    portTickType ticksTimeOut = ((totalBytes*10*1000)/(i2cGetFrequency(i2c))+timeOutMillis)/portTICK_PERIOD_MS;
+    TickType_t ticksTimeOut = ((totalBytes*10*1000)/(i2cGetFrequency(i2c))+timeOutMillis)/portTICK_PERIOD_MS;
 
     i2c->dev->ctr.trans_start=1; // go for it
 

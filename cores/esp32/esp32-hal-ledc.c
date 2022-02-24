@@ -44,7 +44,7 @@
 #else
 #define LEDC_MUTEX_LOCK()    do {} while (xSemaphoreTake(_ledc_sys_lock, portMAX_DELAY) != pdPASS)
 #define LEDC_MUTEX_UNLOCK()  xSemaphoreGive(_ledc_sys_lock)
-xSemaphoreHandle _ledc_sys_lock = NULL;
+SemaphoreHandle_t _ledc_sys_lock = NULL;
 #endif
 
 /*

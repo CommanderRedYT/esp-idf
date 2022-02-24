@@ -19,6 +19,7 @@
 #include "esp32-hal-matrix.h"
 #include "soc/gpio_sd_reg.h"
 #include "soc/gpio_sd_struct.h"
+#include "freertos/semphr.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+
@@ -40,7 +41,7 @@
 #else
 #define SD_MUTEX_LOCK()    do {} while (xSemaphoreTake(_sd_sys_lock, portMAX_DELAY) != pdPASS)
 #define SD_MUTEX_UNLOCK()  xSemaphoreGive(_sd_sys_lock)
-xSemaphoreHandle _sd_sys_lock;
+SemaphoreHandle_t _sd_sys_lock;
 #endif
 
 static void _on_apb_change(void * arg, apb_change_ev_t ev_type, uint32_t old_apb, uint32_t new_apb){
