@@ -43,7 +43,7 @@ set(includedirs
 
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
 set(requires spi_flash mbedtls esp_adc_cal wifi_provisioning)
-set(priv_requires nvs_flash spiffs bootloader_support openssl tinyusb espcpputils fmt)
+set(priv_requires nvs_flash spiffs bootloader_support tinyusb espcpputils fmt)
 
 idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires})
 
