@@ -26,6 +26,9 @@
 #include "hal/rmt_ll.h"
 #include "driver/rmt.h"
 
+// RMTMEM address is declared in <target>.peripherals.ld
+extern rmt_mem_t RMTMEM;
+
 /**
  * Internal macros
  */
@@ -293,11 +296,7 @@ bool rmtWrite(rmt_obj_t* rmt, rmt_data_t* data, size_t size)
         RMT.conf_ch[channel].conf1.mem_wr_rst = 0;
 
         // set the tx end mark
-        RMTMEM.chan[channel].data32[MAX_DATA_PER_ITTERATION]
-#ifdef OLD_IDF
-            .val
-#endif
-            = 0;
+        RMTMEM.chan[channel].data32[MAX_DATA_PER_ITTERATION].val = 0;
 
         // clear and enable both Tx completed and half tx event
         RMT.int_clr.val = _INT_TX_END(channel);
@@ -619,11 +618,7 @@ bool _rmtSendOnce(rmt_obj_t* rmt, rmt_data_t* data, size_t size, bool continuous
             *rmt_mem_ptr++ = data[i].val;
         }
         // tx end mark
-        RMTMEM.chan[channel].data32[size]
-#ifdef OLD_IDF
-            .val
-#endif
-            = 0;
+        RMTMEM.chan[channel].data32[size].val = 0;
     }
 
     RMT_MUTEX_LOCK(channel);
@@ -696,11 +691,7 @@ static void ARDUINO_ISR_ATTR _rmt_isr(void* arg)
                     }
                     uint32_t *data_received = data;
                     for (i = 0; i < g_rmt_objects[ch].data_size; i++ ) {
-                        *data++ = RMTMEM.chan[ch].data32[i]
-#ifdef OLD_IDF
-                            .val
-#endif
-                            ;
+                        *data++ = RMTMEM.chan[ch].data32[i].val;
                     }
                     if (g_rmt_objects[ch].cb) {
                         // actually received data ptr                        
@@ -779,28 +770,16 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_second(uint8_t ch)
         // will the remaining data occupy the entire halfbuffer
         if (remaining_size > half_tx_nr) {
             for (i = 0; i < half_tx_nr; i++) {
-                RMTMEM.chan[ch].data32[half_tx_nr+i]
-#ifdef OLD_IDF
-                    .val
-#endif
-                    = data[i];
+                RMTMEM.chan[ch].data32[half_tx_nr+i].val = data[i];
             }
             g_rmt_objects[ch].data_size -= half_tx_nr;
             g_rmt_objects[ch].data_ptr += half_tx_nr;
         } else {
             for (i = 0; i < half_tx_nr; i++) {
                 if (i < remaining_size) {
-                    RMTMEM.chan[ch].data32[half_tx_nr+i]
-#ifdef OLD_IDF
-                        .val
-#endif
-                        = data[i];
+                    RMTMEM.chan[ch].data32[half_tx_nr+i].val = data[i];
                 } else {
-                    RMTMEM.chan[ch].data32[half_tx_nr+i]
-#ifdef OLD_IDF
-                        .val
-#endif
-                        = 0x000F000F;
+                    RMTMEM.chan[ch].data32[half_tx_nr+i].val = 0x000F000F;
                 }
             }
             g_rmt_objects[ch].data_ptr = NULL;
@@ -809,17 +788,9 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_second(uint8_t ch)
     } else if   ((!(g_rmt_objects[ch].tx_state & E_LAST_DATA)) &&
                  (!(g_rmt_objects[ch].tx_state & E_END_TRANS))) {
         for (i = 0; i < half_tx_nr; i++) {
-            RMTMEM.chan[ch].data32[half_tx_nr+i]
-#ifdef OLD_IDF
-                .val
-#endif
-                = 0x000F000F;
+            RMTMEM.chan[ch].data32[half_tx_nr+i].val = 0x000F000F;
         }
-        RMTMEM.chan[ch].data32[half_tx_nr+i]
-#ifdef OLD_IDF
-            .val
-#endif
-            = 0;
+        RMTMEM.chan[ch].data32[half_tx_nr+i].val = 0;
         g_rmt_objects[ch].tx_state |= E_LAST_DATA;
         RMT.conf_ch[ch].conf1.tx_conti_mode = 0;
     } else {
@@ -847,17 +818,9 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_first(uint8_t ch)
 
         // will the remaining data occupy the entire halfbuffer
         if (remaining_size > half_tx_nr) {
-            RMTMEM.chan[ch].data32[0]
-#ifdef OLD_IDF
-                .val
-#endif
-                = data[0] - 1;
+            RMTMEM.chan[ch].data32[0].val = data[0] - 1;
             for (i = 1; i < half_tx_nr; i++) {
-                RMTMEM.chan[ch].data32[i]
-#ifdef OLD_IDF
-                    .val
-#endif
-                    = data[i];
+                RMTMEM.chan[ch].data32[i].val = data[i];
             }
             g_rmt_objects[ch].tx_state &= ~E_FIRST_HALF;
             // turn off the treshold interrupt
@@ -866,24 +829,12 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_first(uint8_t ch)
             g_rmt_objects[ch].data_size -= half_tx_nr;
             g_rmt_objects[ch].data_ptr += half_tx_nr;
         } else {
-            RMTMEM.chan[ch].data32[0]
-#ifdef OLD_IDF
-                .val
-#endif
-                = data[0] - 1;
+            RMTMEM.chan[ch].data32[0].val = data[0] - 1;
             for (i = 1; i < half_tx_nr; i++) {
                 if (i < remaining_size) {
-                    RMTMEM.chan[ch].data32[i]
-#ifdef OLD_IDF
-                        .val
-#endif
-                        = data[i];
+                    RMTMEM.chan[ch].data32[i].val = data[i];
                 } else {
-                    RMTMEM.chan[ch].data32[i]
-#ifdef OLD_IDF
-                        .val
-#endif
-                        = 0x000F000F;
+                    RMTMEM.chan[ch].data32[i].val = 0x000F000F;
                 }
             }
 
@@ -892,17 +843,9 @@ static void ARDUINO_ISR_ATTR _rmt_tx_mem_first(uint8_t ch)
         }
     } else { 
         for (i = 0; i < half_tx_nr; i++) {
-            RMTMEM.chan[ch].data32[i]
-#ifdef OLD_IDF
-                .val
-#endif
-                = 0x000F000F;
+            RMTMEM.chan[ch].data32[i].val = 0x000F000F;
         }
-        RMTMEM.chan[ch].data32[i]
-#ifdef OLD_IDF
-            .val
-#endif
-            = 0;
+        RMTMEM.chan[ch].data32[i].val = 0;
 
         g_rmt_objects[ch].tx_state &= ~E_FIRST_HALF;
         RMT.tx_lim_ch[ch].limit = 0;
