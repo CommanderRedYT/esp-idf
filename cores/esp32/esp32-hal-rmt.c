@@ -329,7 +329,7 @@ bool rmtReadData(rmt_obj_t* rmt, uint32_t* data, size_t size)
     }
 
     size_t i;
-    volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0]);
+    volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0].val);
     for (i=0; i<size; i++) {
         data[i] = *rmt_mem_ptr++;
     }
@@ -613,7 +613,7 @@ bool _rmtSendOnce(rmt_obj_t* rmt, rmt_data_t* data, size_t size, bool continuous
     RMT.apb_conf.fifo_mask = 1;
     if (data && size>0) {
         size_t i;
-        volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0]);
+        volatile uint32_t* rmt_mem_ptr = &(RMTMEM.chan[channel].data32[0].val);
         for (i = 0; i < size; i++) {
             *rmt_mem_ptr++ = data[i].val;
         }
@@ -859,7 +859,7 @@ static int ARDUINO_ISR_ATTR _rmt_get_mem_len(uint8_t channel)
 {
     int block_num = RMT.conf_ch[channel].conf0.mem_size;
     int item_block_len = block_num * 64;
-    volatile uint32_t* data = RMTMEM.chan[channel].data32;
+    volatile uint32_t* data = &RMTMEM.chan[channel].data32->val;
     int idx;
     for(idx = 0; idx < item_block_len; idx++) {
         rmt_item32_t helper;
