@@ -22,7 +22,6 @@
 #define FS_H
 
 #include <memory>
-#include <Arduino.h>
 
 namespace fs
 {
