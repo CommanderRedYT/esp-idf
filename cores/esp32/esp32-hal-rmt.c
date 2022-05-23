@@ -25,6 +25,9 @@
 #include "esp_intr_alloc.h"
 #include "hal/rmt_ll.h"
 #include "driver/rmt.h"
+#include "esp32-hal-rmt.h"
+#include "esp32-hal-gpio.h"
+#include "esp32-hal-matrix.h"
 
 // RMTMEM address is declared in <target>.peripherals.ld
 extern rmt_mem_t RMTMEM;

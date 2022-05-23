@@ -153,7 +153,7 @@ const char* File::name() const
 }
 
 //to implement
-boolean File::isDirectory(void)
+bool File::isDirectory(void)
 {
     if (!_p) {
         return false;

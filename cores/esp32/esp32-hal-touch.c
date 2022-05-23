@@ -31,13 +31,14 @@
 #include "esp32s2/rom/ets_sys.h"
 #include "esp_intr_alloc.h"
 #include "soc/periph_defs.h"
-#else 
+#else
 #error Target CONFIG_IDF_TARGET is not supported
 #endif
 #else // ESP32 Before IDF 4.0
 #include "rom/ets_sys.h"
 #include "esp_intr.h"
 #endif
+#include "esp32-hal-gpio.h"
 
 static uint16_t __touchSleepCycles = 0x1000;
 static uint16_t __touchMeasureCycles = 0x1000;

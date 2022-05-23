@@ -21,6 +21,9 @@
 #include "soc/dport_reg.h"
 #include "soc/ledc_reg.h"
 #include "soc/ledc_struct.h"
+#include "esp32-hal-cpu.h"
+#include "esp32-hal-gpio.h"
+#include "esp32-hal-ledc.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+

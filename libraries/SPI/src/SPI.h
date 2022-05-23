@@ -22,7 +22,6 @@
 #define _SPI_H_INCLUDED
 
 #include <stdlib.h>
-#include "pins_arduino.h"
 #include "esp32-hal-spi.h"
 
 #define SPI_HAS_TRANSACTION

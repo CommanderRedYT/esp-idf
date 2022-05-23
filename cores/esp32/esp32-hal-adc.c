@@ -42,6 +42,7 @@ static uint8_t __analogVRefPin = 0;
 #include "rom/ets_sys.h"
 #include "esp_intr.h"
 #endif
+#include "esp32-hal-gpio.h"
 
 static uint8_t __analogAttenuation = 3;//11db
 static uint8_t __analogWidth = 3;//12 bits

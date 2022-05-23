@@ -29,6 +29,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include <string>
+#include "esp32-hal-i2c.h"
 
 #define STICKBREAKER 'V1.1.0'
 #define I2C_BUFFER_LENGTH 128

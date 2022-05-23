@@ -35,7 +35,7 @@ extern "C" {
 #include "esp32-hal-i2c.h"
 #include "esp32-hal-log.h"
 #include "Wire.h"
-#include "Arduino.h"
+#include "pins_arduino.h"
 
 std::string toString(i2c_err_t val)
 {

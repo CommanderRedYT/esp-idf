@@ -43,6 +43,9 @@
 #include "rom/gpio.h"
 #include "esp_intr.h"
 #endif
+#include "esp32-hal-gpio.h"
+#include "esp32-hal-matrix.h"
+#include "esp32-hal-cpu.h"
 
 struct spi_struct_t {
     spi_dev_t * dev;

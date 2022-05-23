@@ -25,6 +25,8 @@
 #include "esp_attr.h"
 #include "esp32-hal-cpu.h" // cpu clock change support 31DEC2018
 #include "esp32-hal-log.h"
+#include "esp32-hal-gpio.h"
+#include "esp32-hal-matrix.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+
@@ -38,6 +40,7 @@
 #else // ESP32 Before IDF 4.0
 #include "rom/ets_sys.h"
 #endif
+#include "driver/gpio.h"
 
 
 #if CONFIG_IDF_TARGET_ESP32

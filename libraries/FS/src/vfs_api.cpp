@@ -16,6 +16,8 @@
 
 #include "esp32-hal-log.h"
 
+#include <string.h>
+
 using namespace fs;
 
 FileImplPtr VFSImpl::open(const char* path, const char* mode)
@@ -385,7 +387,7 @@ const char* VFSFileImpl::name() const
 }
 
 //to implement
-boolean VFSFileImpl::isDirectory(void)
+bool VFSFileImpl::isDirectory(void)
 {
     return _isDirectory;
 }

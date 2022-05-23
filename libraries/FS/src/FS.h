@@ -75,7 +75,7 @@ public:
     time_t getLastWrite();
     const char* name() const;
 
-    boolean isDirectory(void);
+    bool isDirectory(void);
     File openNextFile(const char* mode = FILE_READ);
     void rewindDirectory(void);
 

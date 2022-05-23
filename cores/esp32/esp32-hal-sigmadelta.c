@@ -20,6 +20,8 @@
 #include "soc/gpio_sd_reg.h"
 #include "soc/gpio_sd_struct.h"
 #include "freertos/semphr.h"
+#include "esp32-hal-cpu.h"
+#include "esp32-hal-gpio.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+

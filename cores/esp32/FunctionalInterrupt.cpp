@@ -6,7 +6,7 @@
  */
 
 #include "FunctionalInterrupt.h"
-#include "Arduino.h"
+#include "esp32-hal.h"
 
 typedef void (*voidFuncPtr)(void);
 typedef void (*voidFuncPtrArg)(void*);

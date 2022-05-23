@@ -45,4 +45,8 @@ uint32_t getApbFrequency();     // In Hz
 }
 #endif
 
+#define clockCyclesPerMicrosecond() ( (long int)getCpuFrequencyMhz() )
+#define clockCyclesToMicroseconds(a) ( (a) / clockCyclesPerMicrosecond() )
+#define microsecondsToClockCycles(a) ( (a) * clockCyclesPerMicrosecond() )
+
 #endif /* _ESP32_HAL_CPU_H_ */

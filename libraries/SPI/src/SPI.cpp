@@ -21,6 +21,8 @@
 
 #include "SPI.h"
 
+#include "pins_arduino.h"
+
 SPIClass::SPIClass(uint8_t spi_bus)
     :_spi_num(spi_bus)
     ,_spi(NULL)
