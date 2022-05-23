@@ -20,7 +20,8 @@
 extern "C" {
 #endif
 
-#include "esp32-hal.h"
+#include <stdint.h>
+#include <stdbool.h>
 #include "soc/gpio_sig_map.h"
 
 void pinMatrixOutAttach(uint8_t pin, uint8_t function, bool invertOut, bool invertEnable);

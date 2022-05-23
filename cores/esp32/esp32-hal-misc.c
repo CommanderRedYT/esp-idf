@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #include "sdkconfig.h"
+#include "esp32-hal-misc.h"
+#include "esp32-hal.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_attr.h"
@@ -29,7 +31,6 @@
 #include "soc/rtc_cntl_reg.h"
 #include "soc/apb_ctrl_reg.h"
 #include "esp_task_wdt.h"
-#include "esp32-hal.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+

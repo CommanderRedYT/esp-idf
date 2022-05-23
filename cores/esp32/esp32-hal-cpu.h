@@ -45,6 +45,14 @@ uint32_t getApbFrequency();     // In Hz
 }
 #endif
 
+#ifndef F_CPU
+#if CONFIG_IDF_TARGET_ESP32 // ESP32/PICO-D4
+#define F_CPU (CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ * 1000000U)
+#elif CONFIG_IDF_TARGET_ESP32S2
+#define F_CPU (CONFIG_ESP32S2_DEFAULT_CPU_FREQ_MHZ * 1000000U)
+#endif
+#endif
+
 #define clockCyclesPerMicrosecond() ( (long int)getCpuFrequencyMhz() )
 #define clockCyclesToMicroseconds(a) ( (a) / clockCyclesPerMicrosecond() )
 #define microsecondsToClockCycles(a) ( (a) * clockCyclesPerMicrosecond() )

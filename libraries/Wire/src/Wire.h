@@ -25,10 +25,11 @@
 #ifndef TwoWire_h
 #define TwoWire_h
 
-#include <esp32-hal.h>
+#include <string>
+#include <string.h>
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
-#include <string>
 #include "esp32-hal-i2c.h"
 
 #define STICKBREAKER 'V1.1.0'

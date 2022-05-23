@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "esp32-hal.h"
 #include "esp32-hal-touch.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"

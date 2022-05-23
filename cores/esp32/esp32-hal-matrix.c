@@ -14,6 +14,7 @@
 
 #include "esp32-hal-matrix.h"
 #include "esp_attr.h"
+#include "esp32-hal.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+

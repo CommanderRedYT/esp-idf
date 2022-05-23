@@ -14,6 +14,9 @@
 
 #include "esp32-hal.h"
 
+#include <stdbool.h>
+#include <stddef.h>
+
 #if CONFIG_SPIRAM_SUPPORT || CONFIG_SPIRAM
 #include "soc/efuse_reg.h"
 #include "esp_heap_caps.h"

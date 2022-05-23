@@ -24,7 +24,9 @@
 extern "C" {
 #endif
 
-#include "esp32-hal.h"
+#include <stdint.h>
+#include <stdbool.h>
+//#include "esp32-hal.h"
 
 typedef enum {
     ADC_0db,

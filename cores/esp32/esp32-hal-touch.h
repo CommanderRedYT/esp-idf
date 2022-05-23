@@ -24,7 +24,7 @@
 extern "C" {
 #endif
 
-#include "esp32-hal.h"
+#include <stdint.h>
 
 /*
  * Set cycles that measurement operation takes

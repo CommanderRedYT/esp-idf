@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <string.h>
+
 #include "esp32-hal-i2c.h"
 #include "esp32-hal.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
 #include "freertos/event_groups.h"
-#include "driver/periph_ctrl.h"
+#include "esp_private/periph_ctrl.h"
 #include "soc/i2c_reg.h"
 #include "soc/i2c_struct.h"
 #include "soc/dport_reg.h"
@@ -27,6 +29,7 @@
 #include "esp32-hal-log.h"
 #include "esp32-hal-gpio.h"
 #include "esp32-hal-matrix.h"
+#include "esp32-hal-misc.h"
 
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+
