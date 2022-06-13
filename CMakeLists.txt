@@ -23,10 +23,7 @@ set(CORE_SRCS
   )
 
 set(LIBRARY_SRCS
-  libraries/FS/src/FS.cpp
-  libraries/FS/src/vfs_api.cpp
   libraries/SPI/src/SPI.cpp
-  libraries/SPIFFS/src/SPIFFS.cpp
   libraries/Wire/src/Wire.cpp
   )
 
@@ -34,15 +31,13 @@ set(LIBRARY_SRCS
 set(includedirs
   variants/esp32/
   cores/esp32/
-  libraries/FS/src
   libraries/SPI/src
-  libraries/SPIFFS/src
   libraries/Wire/src
   )
 
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
 set(requires spi_flash mbedtls esp_adc_cal wifi_provisioning)
-set(priv_requires nvs_flash spiffs bootloader_support tinyusb espcpputils fmt)
+set(priv_requires nvs_flash bootloader_support tinyusb espcpputils fmt)
 
 idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires})
 
