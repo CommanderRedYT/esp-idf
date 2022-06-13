@@ -150,6 +150,7 @@ typedef struct {
     const char                  *common_name;             /*!< Pointer to the string containing server certificate common name.
                                                                If non-NULL, server certificate CN must match this name,
                                                                If NULL, server certificate CN must match hostname. */
+    bool                        skip_server_verification;       /*!< Skip server verification completely. Should only be used for debugging */
     esp_err_t (*crt_bundle_attach)(void *conf);      /*!< Function pointer to esp_crt_bundle_attach. Enables the use of certification
                                                           bundle for server verification, must be enabled in menuconfig */
     bool                        keep_alive_enable;   /*!< Enable keep-alive timeout */
