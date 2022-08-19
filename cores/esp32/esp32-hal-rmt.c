@@ -21,7 +21,7 @@
 #include "esp8266-compat.h"
 #include "soc/gpio_reg.h"
 #include "soc/rmt_struct.h"
-#include "driver/periph_ctrl.h"
+#include <esp_private/periph_ctrl.h>
 #include "esp_intr_alloc.h"
 #include "hal/rmt_ll.h"
 #include "driver/rmt.h"
