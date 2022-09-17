@@ -159,20 +159,20 @@ bool setCpuFrequencyMhz(uint32_t cpu_freq_mhz){
     if(xtal > RTC_XTAL_FREQ_AUTO){
         if(xtal < RTC_XTAL_FREQ_40M) {
             if(cpu_freq_mhz <= xtal && cpu_freq_mhz != xtal && cpu_freq_mhz != (xtal/2)){
-                log_e("Bad frequency: %u MHz! Options are: 240, 160, 80, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2);
+                log_e("Bad frequency: %lu MHz! Options are: 240, 160, 80, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2);
                 return false;
             }
         } else if(cpu_freq_mhz <= xtal && cpu_freq_mhz != xtal && cpu_freq_mhz != (xtal/2) && cpu_freq_mhz != (xtal/4)){
-            log_e("Bad frequency: %u MHz! Options are: 240, 160, 80, %u, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2, xtal/4);
+            log_e("Bad frequency: %lu MHz! Options are: 240, 160, 80, %u, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2, xtal/4);
             return false;
         }
     }
 #endif
     if(cpu_freq_mhz > xtal && cpu_freq_mhz != 240 && cpu_freq_mhz != 160 && cpu_freq_mhz != 80){
         if(xtal >= RTC_XTAL_FREQ_40M){
-            log_e("Bad frequency: %u MHz! Options are: 240, 160, 80, %u, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2, xtal/4);
+            log_e("Bad frequency: %lu MHz! Options are: 240, 160, 80, %u, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2, xtal/4);
         } else {
-            log_e("Bad frequency: %u MHz! Options are: 240, 160, 80, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2);
+            log_e("Bad frequency: %lu MHz! Options are: 240, 160, 80, %u and %u MHz", cpu_freq_mhz, xtal, xtal/2);
         }
         return false;
     }
@@ -195,7 +195,7 @@ bool setCpuFrequencyMhz(uint32_t cpu_freq_mhz){
     }
     //Get configuration for the new CPU frequency
     if(!rtc_clk_cpu_freq_mhz_to_config(cpu_freq_mhz, &conf)){
-        log_e("CPU clock could not be set to %u MHz", cpu_freq_mhz);
+        log_e("CPU clock could not be set to %lu MHz", cpu_freq_mhz);
         return false;
     }
     //Current APB

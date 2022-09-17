@@ -224,7 +224,7 @@ uint8_t TwoWire::requestFrom(uint16_t address, uint8_t size, bool sendStop)
     if(cnt < (I2C_BUFFER_LENGTH-1) && (size + cnt) <= I2C_BUFFER_LENGTH) { // any room left in rxBuffer
         rxQueued += size;
     } else { // no room to receive more!
-        log_e("rxBuff overflow %d", cnt + size);
+        log_e("rxBuff overflow %lu", cnt + size);
         cnt = 0;
         last_error = I2C_ERROR_MEMORY;
         flush();

@@ -479,7 +479,7 @@ static void i2cApbChangeCallback(void * arg, apb_change_ev_t ev_type, uint32_t o
     switch(ev_type){
         case APB_BEFORE_CHANGE : 
             if(new_apb < 3000000) {// too slow
-                log_e("apb speed %d too slow",new_apb);
+                log_e("apb speed %lu too slow",new_apb);
                 break;
             }
             I2C_MUTEX_LOCK(); // lock will spin until current transaction is completed
@@ -779,7 +779,7 @@ static void ARDUINO_ISR_ATTR emptyRxFifo(i2c_t * i2c)
         }
       
         if(i2c->queuePos >= i2c->queueCount){ // bad stuff, rx data but no place to put it!
-            log_e("no Storage location for %d",moveCnt);
+            log_e("no Storage location for %lu",moveCnt);
         // discard
             while(moveCnt>0){
                 d = i2c->dev->fifo_data.val;
@@ -795,7 +795,7 @@ static void ARDUINO_ISR_ATTR emptyRxFifo(i2c_t * i2c)
                 moveCnt = (tdq->length - tdq->position);
             }
         } else {// error
-            log_e("RxEmpty(%d) call on TxBuffer? dq=%d",moveCnt,i2c->queuePos);
+            log_e("RxEmpty(%4lu) call on TxBuffer? dq=%d",moveCnt,i2c->queuePos);
         // discard
             while(moveCnt>0){
                 d = i2c->dev->fifo_data.val;
@@ -1032,7 +1032,7 @@ static void ARDUINO_ISR_ATTR i2c_isr_handler_default(void* arg)
 
         if(activeInt) { // clear unhandled if possible?  What about Disabling interrupt?
             p_i2c->dev->int_clr.val = activeInt;
-            log_e("unknown int=%x",activeInt);
+            log_e("unknown int=%lx",activeInt);
             // disable unhandled IRQ,
             p_i2c->dev->int_ena.val = p_i2c->dev->int_ena.val & (~activeInt);
         }
@@ -1280,7 +1280,7 @@ i2c_err_t i2cProcQueue(i2c_t * i2c, uint32_t *readCount, uint16_t timeOutMillis)
         }
 
         if(ret!=ESP_OK) {
-            log_e("install interrupt handler Failed=%d",ret);
+            log_e("install interrupt handler Failed=%lu",ret);
             I2C_MUTEX_UNLOCK();
             return I2C_ERROR_MEMORY;
         }

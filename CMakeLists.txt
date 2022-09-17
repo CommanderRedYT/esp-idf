@@ -1,5 +1,4 @@
 set(CORE_SRCS
-  cores/esp32/esp32-hal-adc.c
   cores/esp32/esp32-hal-cpu.c
   cores/esp32/esp32-hal-dac.c
   cores/esp32/esp32-hal-gpio.c
@@ -8,10 +7,8 @@ set(CORE_SRCS
   cores/esp32/esp32-hal-matrix.c
   cores/esp32/esp32-hal-misc.c
   cores/esp32/esp32-hal-psram.c
-  cores/esp32/esp32-hal-sigmadelta.c
   cores/esp32/esp32-hal-spi.c
   cores/esp32/esp32-hal-tinyusb.c
-  cores/esp32/esp32-hal-touch.c
   cores/esp32/esp32-hal-rmt.c
   cores/esp32/FunctionalInterrupt.cpp
   cores/esp32/stdlib_noniso.c
@@ -36,7 +33,7 @@ set(includedirs
   )
 
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
-set(requires spi_flash mbedtls esp_adc_cal wifi_provisioning)
+set(requires spi_flash mbedtls wifi_provisioning driver)
 set(priv_requires nvs_flash bootloader_support tinyusb espcpputils fmt)
 
 idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires})

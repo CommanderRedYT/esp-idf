@@ -19,7 +19,7 @@
 #include "soc/rtc_io_periph.h"
 #include "soc/sens_reg.h"
 #include "soc/sens_struct.h"
-#include "driver/dac.h"
+//#include "driver/dac.h"
 #include "esp32-hal-gpio.h"
 
 #if CONFIG_IDF_TARGET_ESP32
