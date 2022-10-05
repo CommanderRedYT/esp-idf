@@ -338,7 +338,7 @@ static void i2cDumpDqData(i2c_t * i2c)
 static void i2cDumpI2c(i2c_t * i2c)
 {
     log_e("i2c=%p",i2c);
-    log_i("dev=%p date=%u",i2c->dev,i2c->dev->date);
+    log_i("dev=%p date=%"PRIu32,i2c->dev,i2c->dev->date);
 #if !CONFIG_DISABLE_HAL_LOCKS
     log_i("lock=%p",i2c->lock);
 #endif
@@ -346,14 +346,14 @@ static void i2cDumpI2c(i2c_t * i2c)
     log_i("mode=%d",i2c->mode);
     log_i("stage=%d",i2c->stage);
     log_i("error=%d",i2c->error);
-    log_i("event=%p bits=%x",i2c->i2c_event,(i2c->i2c_event)?xEventGroupGetBits(i2c->i2c_event):0);
+    log_i("event=%p bits=%lx",i2c->i2c_event,(i2c->i2c_event)?xEventGroupGetBits(i2c->i2c_event):0);
     log_i("intr_handle=%p",i2c->intr_handle);
     log_i("dq=%p",i2c->dq);
     log_i("queueCount=%d",i2c->queueCount);
     log_i("queuePos=%d",i2c->queuePos);
     log_i("errorByteCnt=%d",i2c->errorByteCnt);
     log_i("errorQueue=%d",i2c->errorQueue);
-    log_i("debugFlags=0x%08X",i2c->debugFlags);
+    log_i("debugFlags=0x%08" PRIu32 "X",i2c->debugFlags);
     if(i2c->dq) {
         i2cDumpDqData(i2c);
     }
