@@ -8,12 +8,9 @@ set(CORE_SRCS
   cores/esp32/esp32-hal-misc.c
   cores/esp32/esp32-hal-psram.c
   cores/esp32/esp32-hal-spi.c
-  cores/esp32/esp32-hal-tinyusb.c
   cores/esp32/esp32-hal-rmt.c
   cores/esp32/FunctionalInterrupt.cpp
   cores/esp32/stdlib_noniso.c
-  cores/esp32/USB.cpp
-  cores/esp32/USBCDC.cpp
   cores/esp32/wiring_pulse.c
   cores/esp32/wiring_shift.c
   cores/esp32/WMath.cpp
@@ -34,7 +31,7 @@ set(includedirs
 
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
 set(requires spi_flash mbedtls wifi_provisioning driver)
-set(priv_requires nvs_flash bootloader_support tinyusb espcpputils fmt)
+set(priv_requires nvs_flash bootloader_support espcpputils fmt)
 
 idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires})
 
