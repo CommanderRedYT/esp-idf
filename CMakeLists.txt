@@ -6,9 +6,7 @@ set(CORE_SRCS
   cores/esp32/esp32-hal-ledc.c
   cores/esp32/esp32-hal-matrix.c
   cores/esp32/esp32-hal-misc.c
-  cores/esp32/esp32-hal-psram.c
   cores/esp32/esp32-hal-spi.c
-  cores/esp32/esp32-hal-rmt.c
   cores/esp32/FunctionalInterrupt.cpp
   cores/esp32/stdlib_noniso.c
   cores/esp32/wiring_pulse.c
