@@ -323,70 +323,7 @@ static void ARDUINO_ISR_ATTR __onPinInterrupt()
     }
 }
 
-extern void cleanupFunctional(void* arg);
-
-extern void __attachInterruptFunctionalArg(uint8_t pin, voidFuncPtrArg userFunc, void * arg, int intr_type, bool functional)
-{
-    static bool interrupt_initialized = false;
-
-    if(!interrupt_initialized) {
-        interrupt_initialized = true;
-        esp_intr_alloc(ETS_GPIO_INTR_SOURCE, (int)ARDUINO_ISR_FLAG, __onPinInterrupt, NULL, &gpio_intr_handle);
-    }
-
-    // if new attach without detach remove old info
-    if (__pinInterruptHandlers[pin].functional && __pinInterruptHandlers[pin].arg)
-    {
-    	cleanupFunctional(__pinInterruptHandlers[pin].arg);
-    }
-    __pinInterruptHandlers[pin].fn = (voidFuncPtr)userFunc;
-    __pinInterruptHandlers[pin].arg = arg;
-    __pinInterruptHandlers[pin].functional = functional;
-
-    esp_intr_disable(gpio_intr_handle);
-#if CONFIG_IDF_TARGET_ESP32
-    if(esp_intr_get_cpu(gpio_intr_handle)) { //APP_CPU
-#endif
-        GPIO.pin[pin].int_ena = 1;
-#if CONFIG_IDF_TARGET_ESP32
-    } else { //PRO_CPU
-        GPIO.pin[pin].int_ena = 4;
-    }
-#endif
-    GPIO.pin[pin].int_type = intr_type;
-    esp_intr_enable(gpio_intr_handle);
-}
-
-extern void __attachInterruptArg(uint8_t pin, voidFuncPtrArg userFunc, void * arg, int intr_type)
-{
-	__attachInterruptFunctionalArg(pin, userFunc, arg, intr_type, false);
-}
-
-extern void __attachInterrupt(uint8_t pin, voidFuncPtr userFunc, int intr_type) {
-    __attachInterruptFunctionalArg(pin, (voidFuncPtrArg)userFunc, NULL, intr_type, false);
-}
-
-extern void __detachInterrupt(uint8_t pin)
-{
-    esp_intr_disable(gpio_intr_handle);
-    if (__pinInterruptHandlers[pin].functional && __pinInterruptHandlers[pin].arg)
-    {
-    	cleanupFunctional(__pinInterruptHandlers[pin].arg);
-    }
-    __pinInterruptHandlers[pin].fn = NULL;
-    __pinInterruptHandlers[pin].arg = NULL;
-    __pinInterruptHandlers[pin].functional = false;
-
-    GPIO.pin[pin].int_ena = 0;
-    GPIO.pin[pin].int_type = 0;
-    esp_intr_enable(gpio_intr_handle);
-}
-
-
 extern void pinMode(uint8_t pin, uint8_t mode) __attribute__ ((weak, alias("__pinMode")));
 extern void digitalWrite(uint8_t pin, uint8_t val) __attribute__ ((weak, alias("__digitalWrite")));
 extern int digitalRead(uint8_t pin) __attribute__ ((weak, alias("__digitalRead")));
-extern void attachInterrupt(uint8_t pin, voidFuncPtr handler, int mode) __attribute__ ((weak, alias("__attachInterrupt")));
-extern void attachInterruptArg(uint8_t pin, voidFuncPtrArg handler, void * arg, int mode) __attribute__ ((weak, alias("__attachInterruptArg")));
-extern void detachInterrupt(uint8_t pin) __attribute__ ((weak, alias("__detachInterrupt")));
 

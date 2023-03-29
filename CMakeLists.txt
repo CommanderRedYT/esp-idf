@@ -1,17 +1,10 @@
 set(CORE_SRCS
   cores/esp32/esp32-hal-cpu.c
-  cores/esp32/esp32-hal-dac.c
   cores/esp32/esp32-hal-gpio.c
   cores/esp32/esp32-hal-i2c.c
-  cores/esp32/esp32-hal-ledc.c
   cores/esp32/esp32-hal-matrix.c
   cores/esp32/esp32-hal-misc.c
   cores/esp32/esp32-hal-spi.c
-  cores/esp32/FunctionalInterrupt.cpp
-  cores/esp32/stdlib_noniso.c
-  cores/esp32/wiring_pulse.c
-  cores/esp32/wiring_shift.c
-  cores/esp32/WMath.cpp
   )
 
 set(LIBRARY_SRCS

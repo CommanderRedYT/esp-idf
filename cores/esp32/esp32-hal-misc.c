@@ -45,22 +45,6 @@
 #include "rom/rtc.h"
 #endif
 
-//Undocumented!!! Get chip temperature in Farenheit
-//Source: https://github.com/pcbreflux/espressif/blob/master/esp32/arduino/sketchbook/ESP32_int_temp_sensor/ESP32_int_temp_sensor.ino
-uint8_t temprature_sens_read();
-
-float temperatureRead()
-{
-    return (temprature_sens_read() - 32) / 1.8;
-}
-
-void __yield()
-{
-    vPortYield();
-}
-
-void yield() __attribute__ ((weak, alias("__yield")));
-
 unsigned long ARDUINO_ISR_ATTR micros()
 {
     return (unsigned long) (esp_timer_get_time());
