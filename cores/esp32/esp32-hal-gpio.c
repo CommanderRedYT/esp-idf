@@ -46,6 +46,8 @@
 #include "esp_intr.h"
 #endif
 
+#include "driver/rtc_io.h"
+
 #if CONFIG_IDF_TARGET_ESP32
 const int8_t esp32_adc2gpio[20] = {36, 37, 38, 39, 32, 33, 34, 35, -1, -1, 4, 0, 2, 15, 13, 12, 14, 27, 25, 26};
 #elif CONFIG_IDF_TARGET_ESP32S2
@@ -145,17 +147,6 @@ const DRAM_ATTR esp32_gpioMux_t esp32_gpioMux[SOC_GPIO_PIN_COUNT]={
     {0, -1, -1, -1}
 #endif
 };
-
-typedef void (*voidFuncPtr)(void);
-typedef void (*voidFuncPtrArg)(void*);
-typedef struct {
-    voidFuncPtr fn;
-    void* arg;
-    bool functional;
-} InterruptHandle_t;
-static InterruptHandle_t __pinInterruptHandlers[SOC_GPIO_PIN_COUNT] = {0,};
-
-#include "driver/rtc_io.h"
 
 extern void ARDUINO_ISR_ATTR __pinMode(uint8_t pin, uint8_t mode)
 {
@@ -279,48 +270,6 @@ extern int ARDUINO_ISR_ATTR __digitalRead(uint8_t pin)
         return (GPIO.in1.val >> (pin - 32)) & 0x1;
     }
     return 0;
-}
-
-static intr_handle_t gpio_intr_handle = NULL;
-
-static void ARDUINO_ISR_ATTR __onPinInterrupt()
-{
-    uint32_t gpio_intr_status_l=0;
-    uint32_t gpio_intr_status_h=0;
-
-    gpio_intr_status_l = GPIO.status;
-    gpio_intr_status_h = GPIO.status1.val;
-    GPIO.status_w1tc = gpio_intr_status_l;//Clear intr for gpio0-gpio31
-    GPIO.status1_w1tc.val = gpio_intr_status_h;//Clear intr for gpio32-39
-
-    uint8_t pin=0;
-    if(gpio_intr_status_l) {
-        do {
-            if(gpio_intr_status_l & ((uint32_t)1 << pin)) {
-                if(__pinInterruptHandlers[pin].fn) {
-                    if(__pinInterruptHandlers[pin].arg){
-                        ((voidFuncPtrArg)__pinInterruptHandlers[pin].fn)(__pinInterruptHandlers[pin].arg);
-                    } else {
-                        __pinInterruptHandlers[pin].fn();
-                    }
-                }
-            }
-        } while(++pin<32);
-    }
-    if(gpio_intr_status_h) {
-        pin=32;
-        do {
-            if(gpio_intr_status_h & ((uint32_t)1 << (pin - 32))) {
-                if(__pinInterruptHandlers[pin].fn) {
-                    if(__pinInterruptHandlers[pin].arg){
-                        ((voidFuncPtrArg)__pinInterruptHandlers[pin].fn)(__pinInterruptHandlers[pin].arg);
-                    } else {
-                        __pinInterruptHandlers[pin].fn();
-                    }
-                }
-            }
-        } while(++pin<GPIO_PIN_COUNT);
-    }
 }
 
 extern void pinMode(uint8_t pin, uint8_t mode) __attribute__ ((weak, alias("__pinMode")));
