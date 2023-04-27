@@ -133,7 +133,7 @@ function(__build_set_lang_version)
             set(cxx_std gnu++23)
         else()
             # TODO: IDF-7241 - remove the exception for clang
-            set(cxx_std gnu++20)
+            set(cxx_std gnu++23)
         endif()
     else()
         enable_language(C CXX)
