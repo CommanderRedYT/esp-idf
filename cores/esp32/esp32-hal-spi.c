@@ -1278,7 +1278,7 @@ uint32_t spiFrequencyToClockDiv(uint32_t freq)
                 memcpy(&bestReg, &reg, sizeof(bestReg));
                 break;
             } else if(calFreq < (int32_t) freq) {
-                if(abs(freq - calFreq) < abs(freq - bestFreq)) {
+                if(freq - calFreq < freq - bestFreq) {
                     bestFreq = calFreq;
                     memcpy(&bestReg, &reg, sizeof(bestReg));
                 }
