@@ -16,7 +16,7 @@
 extern "C" {
 #endif
 
-#define DEFAULT_HTTP_BUF_SIZE (512)
+#define DEFAULT_HTTP_BUF_SIZE (2048)
 
 #include "esp_event.h"
 ESP_EVENT_DECLARE_BASE(ESP_HTTP_CLIENT_EVENT);
